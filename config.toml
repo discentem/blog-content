@@ -1,0 +1,31 @@
+theme = "m10c"
+
+baseURL = "http://example.com/"
+languageCode = "en-us"
+title = "Brandon Kurtz"
+author = "Brandon Kurtz"
+googleAnalytics = ""
+
+[params]
+    description = "I do MacOps and WinOps @ Airbnb. I'm focused on golang, configuration management, and open-source MDM."
+
+[[menu.main]]
+    url = "/"
+    name = "Blog"
+    weight = 1
+
+[[params.social]]
+    icon = "github"
+    url = "https://github.com/discentem/"
+[[params.social]]
+    url = "https://macadmins.slack.com/messages/D1PJBJWLT"
+    icon = "slack"
+[[params.social]]
+    url = "https://twitter.com/muffins222221"
+    icon = "twitter"
+[[params.social]]
+    icon = "linkedin"
+    url = "mailto:kurtz.brandon@gmail.com"
+[[params.social]]
+    icon = "mail"
+    url = "mailto:kurtz.brandon@gmail.com"
