@@ -1,6 +1,6 @@
 ---
 title: "Getting started with Windows Imaging & Glazier (1/X)"
-date: 2021-05-02T15:01:26-04:00
+date: 2021-05-04
 draft: true
 ---
 # What is Glazier? 
@@ -96,6 +96,13 @@ Ironically, I may leave some setup details as an exercise for you (ex. creating 
     OSDCloud Template created at C:\ProgramData\OSDCloud
     Get-OSDCloud.template will return C:\ProgramData\OSDCloud
     ```
+1. Create a OSDCloud Workspace
+
+    ```powershell
+    New-OSDCloud.workspace -WorkspacePath C:\OSDCloud
+    ```
+    > OSDCloud Workspaces allow you to maintain multiple, diverging WinPEs simulatenously without having to overwrite your work. Neat! 
+1. Download a Windows 10 iso to `c:\windows.iso` on your virtual machine. If you aren't sure where else to find an iso, you can just use Microsoft's Install Media creation tool. See [https://www.digitaltrends.com/computing/how-to-download-install-windows-10-iso/](https://www.digitaltrends.com/computing/how-to-download-install-windows-10-iso/) for more info.
 ### Grab drivers from your device fleet
 
 As per Glazier's [boot media requirements](https://github.com/google/glazier/tree/master/docs/setup#requirements-1), we need to make sure our WinPE image includes
@@ -144,5 +151,55 @@ In order to achieve this, you'll need to do the following steps on **each device
       > Technically we only care about drivers that are related to NIC, Video, or Storage for WinPE. However, because I'm lazy, I'll just copy all of the drivers.
 1. Repeat steps 1-4 on each device model that you want to support.
 
+### Set up Python and Glazier
 
+Now head back to your Windows 10 VM and continue with these steps:
+
+1. Download Python
+   ```powershell
+   curl https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe -UseBasicParsing -OutFile ~/Downloads/python3.9.5-amd64.exe
+   ```
+   > The `-UseBasicParsing` flag avoids the need to interactively lauch Internet Explorer. See [https://github.com/MicrosoftDocs/PowerShell-Docs/blob/live/reference/5.1/Microsoft.PowerShell.Utility/Invoke-WebRequest.md#-usebasicparsing](https://github.com/MicrosoftDocs/PowerShell-Docs/blob/live/reference/5.1/Microsoft.PowerShell.Utility/Invoke-WebRequest.md#-usebasicparsing) for more info.
+
+1. Install Python
+
+   ```powershell
+   C:\Users\brandon_kurtz\Downloads\python3.9.5-amd64.exe TargetDir=C:\OSDCloud\Autopilot\Python39\ Include_launcher=0 /passive
+   ```
+   The Python Installer GUI will pop up to show installation progress but no user interaction is required. If you'd rather the GUI did not pop up at all, you can pass `/quiet` instead of `/passive` per Python's [Installing without UI](https://docs.python.org/3/using/windows.html#installing-without-ui) docs.
+1. Install Git
+
+   ```powershell
+   choco install git -y
+   ```
+1. Clone Glazier from Github
+   ```powershell
+   git clone https://github.com/google/glazier.git C:\OSDCloud\Autopilot\glazier
+   ```
+1. Install Glazier's Python requirements
+   ```powershell
+   PS C:\Users\brandon_kurtz> C:\OSDCloud\Autopilot\Python39\python.exe -m pip install -r C:\OSDCloud\Autopilot\glazier\requirements.txt
+   ```
+1. We also need to grab pywin32
+   ```powershell
+   C:\OSDCloud\Autopilot\Python39\python.exe -m pip install pywin32
+   ```
+   ```
+   Collecting pywin32
+   Downloading pywin32-300-cp39-cp39-win_amd64.whl (9.2 MB)
+      |████████████████████████████████| 9.2 MB 3.3 MB/s
+   Installing collected packages: pywin32
+   Successfully installed pywin32-300
+   ```
+1. Create your WinPE WIM, with all the drivers included.
+
+   ```powershell
+   EditOSDCloud.winpe -DriverPath c:\drivers
+   ```
+   After a few minutes, you should see something like this: 
+   ```
+   2021-05-04-195925 Edit-OSDCloud.winpe Completed in 05 minutes 52 seconds
+   ```
+
+1. 
     

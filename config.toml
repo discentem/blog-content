@@ -7,7 +7,7 @@ author = "Brandon Kurtz"
 googleAnalytics = ""
 
 [params]
-    description = "I do MacOps and WinOps @ Airbnb. I'm focused on golang, configuration management, and open-source MDM."
+    description = "I do MacOps and WinOps @ Airbnb. I'm focused on golang, configuration management, and open-source MDM. Views are my own."
 
 [[menu.main]]
     url = "/"
