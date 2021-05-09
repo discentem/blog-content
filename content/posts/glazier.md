@@ -1,6 +1,6 @@
 ---
 title: "Getting started with Windows Imaging & Glazier (1/X)"
-date: 2021-05-04
+date: 2021-05-08
 draft: true
 ---
 # What is Glazier? 
@@ -66,9 +66,9 @@ Ironically, I may leave some setup details as an exercise for you (ex. creating 
    A few important notes/admissions about OSDeploy:
     - [OSDCloud](https://osdcloud.osdeploy.com/) is, within itself, a very cool and powerful imaging tool that you can use **without Glazier**. 
     - **[OSDCloud](https://osdcloud.osdeploy.com/) might be a better choice than Glazier for many admins**. 
-    - However, today, I'm only going to borrow it's sorcery to help us bootstrap Glazier :)
+    - However, today, I'm only going to borrow it's sorcery to help us bootstrap Glazier and also get Wifi (!!) in WinPE :)
     - [OSDCloud](https://osdcloud.osdeploy.com/) probably adds lots of stuff to our WinPE image that we don't actually need for Glazier. 
-      - A more experienced Windows Admin might tell us we are really bloating it unecessarily. But for simplicity sake, and because I don't know better, we'll leave the potential bloat in our WinPE image. 
+      - A more experienced Windows Admin might tell us we are really bloating our WinPE unecessarily. But for simplicity sake, and because I don't know better, we'll leave the potential bloat in our WinPE image. 
 
 1. Launch a new Powershell with a more permissible execution policy:
     ```powershell
@@ -96,12 +96,12 @@ Ironically, I may leave some setup details as an exercise for you (ex. creating 
     OSDCloud Template created at C:\ProgramData\OSDCloud
     Get-OSDCloud.template will return C:\ProgramData\OSDCloud
     ```
-1. Create a OSDCloud Workspace
+1. Create a OSDCloud Workspace.
 
     ```powershell
     New-OSDCloud.workspace -WorkspacePath C:\OSDCloud
     ```
-    > OSDCloud Workspaces allow you to maintain multiple, diverging WinPEs simulatenously without having to overwrite your work. Neat! 
+    > OSDCloud Workspaces allow you to juggle multiple, diverging WinPEs simulatenously without having to overwrite your work. We won't need to take advantage of this feature for Glazier, but it's a pretty neat idea!
 1. Download a Windows 10 iso to `c:\windows.iso` on your virtual machine. If you aren't sure where else to find an iso, you can just use Microsoft's Install Media creation tool. See [https://www.digitaltrends.com/computing/how-to-download-install-windows-10-iso/](https://www.digitaltrends.com/computing/how-to-download-install-windows-10-iso/) for more info.
 ### Grab drivers from your device fleet
 
@@ -121,7 +121,7 @@ In order to achieve this, you'll need to do the following steps on **each device
    ```powershell
    Export-Windowsdriver -Online -Destination c:\drivers
    ```
-   After a few minutes you should see output that looks something like this. (This is a partial snippet showing only drivers that are obviously network related)
+   After a few minutes you should see output that looks something like this. This is a partial snippet.
 
    ```
    ...
@@ -151,17 +151,22 @@ In order to achieve this, you'll need to do the following steps on **each device
       > Technically we only care about drivers that are related to NIC, Video, or Storage for WinPE. However, because I'm lazy, I'll just copy all of the drivers.
 1. Repeat steps 1-4 on each device model that you want to support.
 
-### Set up Python and Glazier
+### Install Python and Glazier
 
-Now head back to your Windows 10 VM and continue with these steps:
+On your Windows 10 VM
 
 1. Download Python
-   ```powershell
+   ```shell
    curl https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe -UseBasicParsing -OutFile ~/Downloads/python3.9.5-amd64.exe
    ```
-   > The `-UseBasicParsing` flag avoids the need to interactively lauch Internet Explorer. See [https://github.com/MicrosoftDocs/PowerShell-Docs/blob/live/reference/5.1/Microsoft.PowerShell.Utility/Invoke-WebRequest.md#-usebasicparsing](https://github.com/MicrosoftDocs/PowerShell-Docs/blob/live/reference/5.1/Microsoft.PowerShell.Utility/Invoke-WebRequest.md#-usebasicparsing) for more info.
+   Notes:
+   >
+    - The `-UseBasicParsing` flag avoids the need to interactively lauch Internet Explorer. See [https://github.com/MicrosoftDocs/PowerShell-Docs/blob/live/reference/5.1/Microsoft.PowerShell.Utility/Invoke-WebRequest.md#-usebasicparsing](https://github.com/MicrosoftDocs/PowerShell-Docs/blob/live/reference/5.1/Microsoft.PowerShell.Utility/Invoke-WebRequest.md#-usebasicparsing) for more info.
+    - If you are wondering why we are copying this to the Autopilot directory: it's because 
+      - (a) ODSCloud automatically copies all the files in this folder to WinPE and 
+      - (b) because I'm too lazy to figure out "the correct" way to copy arbitrary files to OSDCloud generated WinPEs. This feature was definitely intended to be used for adding Autopilot profiles to your devices but... it's fine XD 
 
-1. Install Python
+1. Install Python to `C:\OSDCloud\Autopilot`
 
    ```powershell
    C:\Users\brandon_kurtz\Downloads\python3.9.5-amd64.exe TargetDir=C:\OSDCloud\Autopilot\Python39\ Include_launcher=0 /passive
@@ -172,14 +177,38 @@ Now head back to your Windows 10 VM and continue with these steps:
    ```powershell
    choco install git -y
    ```
-1. Clone Glazier from Github
+1. Relaunch powershell so that the `git` command becomes available and then clone Glazier from Github
    ```powershell
    git clone https://github.com/google/glazier.git C:\OSDCloud\Autopilot\glazier
    ```
+
+   ```
+   Cloning into 'C:\OSDCloud\Autopilot\glazier'...
+   remote: Enumerating objects: 2515, done.
+   remote: Counting objects: 100% (287/287), done.
+   remote: Compressing objects: 100% (164/164), done.
+   remote: Total 2515 (delta 140), reused 225 (delta 114), pack-reused 2228 eceiving objects:  98% (2465/2515)
+   Receiving objects: 100% (2515/2515), 746.62 KiB | 2.05 MiB/s, done.
+   Resolving deltas: 100% (1806/1806), done.
+   ```
+
 1. Install Glazier's Python requirements
    ```powershell
-   PS C:\Users\brandon_kurtz> C:\OSDCloud\Autopilot\Python39\python.exe -m pip install -r C:\OSDCloud\Autopilot\glazier\requirements.txt
+   C:\OSDCloud\Autopilot\Python39\python.exe -m pip install -r C:\OSDCloud\Autopilot\glazier\requirements.txt
    ```
+
+   ```
+   Collecting gwinpy
+   Cloning git://github.com/google/winops (to revision master) to c:\users\brandon_kurtz\appdata\local\temp\pip-install-x1on25fz\gwinpy_e87728180e5f4e7b86151759bc7df024
+   Running command git clone -q git://github.com/google/winops 'C:\Users\brandon_kurtz\AppData\Local\Temp\pip-install-x1on25fz\gwinpy_e87728180e5f4e7b86151759bc7df024'
+   Collecting absl-py
+   ...
+   Installing collected packages: urllib3, six, idna, chardet, certifi, requests, PyYAML, pyfakefs, ntplib, mock, gwinpy, absl-py
+   WARNING: The script chardetect.exe is installed in 'C:\OSDCloud\Autopilot\Python39\Scripts' which is not on PATH.
+   Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+    Running setup.py install for gwinpy ... done
+   Successfully installed PyYAML-5.4.1 absl-py-0.12.0 certifi-2020.12.5 chardet-4.0.0 gwinpy-0.3.0 idna-2.10 mock-4.0.3 ntplib-0.3.4 pyfakefs-4.4.0 requests-2.25.1 six-1.16.0 urllib3-1.26.4
+
 1. We also need to grab pywin32
    ```powershell
    C:\OSDCloud\Autopilot\Python39\python.exe -m pip install pywin32
@@ -191,7 +220,33 @@ Now head back to your Windows 10 VM and continue with these steps:
    Installing collected packages: pywin32
    Successfully installed pywin32-300
    ```
-1. Create your WinPE WIM, with all the drivers included.
+
+### Creating your Glazier configs and a Glazier Distribution Point
+
+#### Set up a Distribution Point (webserver)
+
+Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point](https://github.com/google/glazier/tree/master/docs/setup#distribution-point), we need set up a web server to host our Glazier config files. I'm going to use [Amazon S3](https://aws.amazon.com/s3/) for this but you can use absolutely anything that can act as an https web server. 
+
+A few notes:
+   - For [Munki](https://github.com/munki/munki) admins out there, you can simply devote part of your existing web server to Glazier! Simple. 
+   - Instead of using S3 or any web server at all, you could simply store all of your Glazier config files directly on the WinPE flash drive and pass `--config_server=D:\\path\\to\\configs`. However this would defeat the entire purpose of Glazier. 
+   - **By default, Glazier does not provide authentication for downloading resources**. 
+   - Glazier does support authenticated downloads **if you pass the right flags and have [Fresnel](https://github.com/google/fresnel) infrastructure set up.** I may cover Fresnel in a future blog post, but, for now, **you probably shouldn't use Glazier in production because it will be open to the internet.**
+
+Assuming S3
+
+1. Create a new S3 bucket: https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html
+2. 
+
+
+
+
+
+
+
+
+### Create your WinPE WIM and iso (finally!)
+1. Create your WinPE WIM, with all the drivers you've gathered.
 
    ```powershell
    EditOSDCloud.winpe -DriverPath c:\drivers
