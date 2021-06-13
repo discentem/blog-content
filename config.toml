@@ -6,8 +6,11 @@ title = "Brandon Kurtz"
 author = "Brandon Kurtz"
 googleAnalytics = ""
 
+[markup.goldmark.renderer]
+    unsafe = true
+
 [params]
-    description = "I do MacOps and WinOps @ Airbnb. I'm focused on golang, configuration management, and open-source MDM. Views are my own."
+    description = "I do MacOps & WinOps @ Airbnb. I like golang, config management, and open-source management tools. Views are my own."
 
 [[menu.main]]
     url = "/"
@@ -25,7 +28,7 @@ googleAnalytics = ""
     icon = "twitter"
 [[params.social]]
     icon = "linkedin"
-    url = "mailto:kurtz.brandon@gmail.com"
+    url = "https://www.linkedin.com/in/brandon-kurtz/"
 [[params.social]]
     icon = "mail"
     url = "mailto:kurtz.brandon@gmail.com"
