@@ -20,24 +20,24 @@ From [https://github.com/google/glazier#glazier](https://github.com/google/glazi
 
 [The setup overview](https://google.github.io/glazier/setup/), however, leaves a lot to be desired. Hence why I am writing this blog post: 
 
-I hope to demystify some of the setup details and share a reproducible way to create a WinPE iso that supports Glazier. 
+I hope to streamline some of the setup details and share a reproducible way to create a WinPE iso that supports Glazier. 
 
-# Setting up Glazier
+# Set up Glazier
 
-### Create a WinPE "build server"
+### Create a WinPE "factory"
 
-1. Set up a Windows 10 virtual machine. 
+1. Set up a Windows 10 virtual machine. We'll use this VM later to create a WinPE iso.
 1. Clone my `glazier-starter-kit` repository. 
-   ```powershell
+   ```cmd
    git clone https://github.com/discentem/glazier-starter-kit.git
    ```
    This repository contains 3 main things:
-   - a powershell script that automatically generates a WinPE iso with Glazier and all of its dependencies 🎉
-   - a complete example set of Glazier config files
-   - a golang script that can sync Glazier config files to s3
+   - [a powershell script](https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1) that automatically generates a WinPE iso with Glazier and all of its dependencies 🎉
+   - [a complete example set](https://github.com/discentem/glazier-starter-kit/tree/master/glazier-repo) of Glazier config files
+   - [a golang script](https://github.com/discentem/glazier-starter-kit/blob/master/tools/main.go) that can sync Glazier config files to s3
 
-   I will discuss these things in more detail later on.
-### Grab drivers from your device fleet
+   I will discuss these things in more detail later on. For now, let's move on to drivers.
+### Gather drivers from your device fleet
 
 As per Glazier's [boot media requirements](https://github.com/google/glazier/tree/master/docs/setup#requirements-1), we need to make sure our WinPE image includes
    > Any drivers required to enable the local NIC/Video/Storage on the device. Network connectivity during WinPE is necessary to reach the distribution point.
@@ -76,7 +76,23 @@ In order to achieve this, you'll need to do the following steps on **each device
    ```
 
 1. Copy the entire contents of `C:\drivers` on the laptop to `C:\drivers` on your Windows 10 virtual machine. 
-      > Recall that we technically only need drivers related to NIC, Video, or Storage for WinPE. However, because I'm lazy, I'll just copy all of the drivers.
+      
+      Recall that we technically only need drivers related to NIC, Video, or Storage for WinPE. However, because I'm lazy, I'll just copy all of the drivers.
+      
+      After copying `C:\drivers` back to the virtual machine, the directory should look something like this, with each subfolder containing the files for an individual driver: 
+      (partial snippet)
+      ```cmd
+      PS C:\Users\brandon> ls C:\drivers\
+      
+      Directory: C:\drivers
+
+      Mode                 LastWriteTime         Length Name
+      ----                 -------------         ------ ----
+      d-----         6/19/2021   5:01 PM                atheros_bth.inf_amd64_059e038b6e018050
+      d-----         6/19/2021   5:01 PM                cui_dch.inf_amd64_b8e01d9e8716d2a7
+      d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_amd64_dcc202b5af4a34b5
+      ...
+      ```
 1. Repeat the above steps 1-3 above on each device model that you want to support.
 
 
@@ -84,12 +100,12 @@ In order to achieve this, you'll need to do the following steps on **each device
 
 #### Set up a web server
 
-Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point](https://github.com/google/glazier/tree/master/docs/setup#distribution-point), we need set up a web server to host our Glazier config files. I'm going to use [Amazon S3](https://aws.amazon.com/s3/) but you can use any web server that supports https. A few important notes:
-   - **By default, Glazier does not provide authentication for downloading resources**. So your web server needs to be open to the internet. 
+Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point](https://github.com/google/glazier/tree/master/docs/setup#distribution-point), we need to set up a web server to host our Glazier config files. I'm going to use [Amazon S3](https://aws.amazon.com/s3/) but you can use any web server that supports https. A few important notes:
+   - By default, Glazier does not provide authentication for downloading resources. So your web server needs to be open to the internet. 
    - [Fresnel](https://github.com/google/fresnel), another open-source project from Google's WinOps team, can provide authenticated downloads for Glazier. However, Fresnel is out-of-scope for this post. 
    
 
-**If you aren't using s3**, set up your own web service, and skip to [Read the Glazier docs](#read-the-glazier-docs)
+**If you aren't using s3**, set up your own web service, and skip to [Get familiar with Glazier](#get-familiar-with-glazier)
 
 ##### Set up S3
 
@@ -104,7 +120,7 @@ Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point
 
     ![s3 everyone list and read](/images/s3/everyone_list_read.png)
 
-#### Get familiar with Glazier
+#### Get familiar with Glazier 
 
 1. Take a few minutes to read over the following resources. These docs will help you become familiar the layout and syntax of Glazier configuration files so that you can customize Glazier for your environment.
 
@@ -115,11 +131,17 @@ Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point
 
 1. If desired, customize the various Glazier config files in `glazier-starter-kit/glazier-repo` and/or add new files. 
 
-   This is not strictly necessary at this time because `glazier-starter-kit/glazier-repo` contains a _completely functional_ set of config files. These basic configs won't accomplish very much but they will enough for a Glazier proof-of-concept.
+   You don't necessarily need to customize anything at first. `glazier-starter-kit/glazier-repo` contains a _complete_ set of config files. [These basic configs](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) won't accomplish very much but they will enough for a Glazier proof-of-concept.
 
 #### Upload Glazier configs
 
-1. Upload your Glazier Configs to your web server.
+1. Upload the contents of `glazier-starter-kit/glazier-repo`, with any additions/modifications you've made, to your web server. The root of your web server should look something like this: 
+   ```shell
+   % ls -1
+   dev
+   stable
+   version-info.yaml
+   ```
    <details>
       
       <summary>If you are using Amazon S3 and want a fancy go binary for syncing content to your Glazier server</summary>
@@ -127,15 +149,89 @@ Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point
       <p>&emsp;Use my <a href=https://github.com/discentem/glazier-config/blob/master/sync.go>sync.go</a> script:</p>
       <ul>
       <li>Set up an IAM user for S3 uploads. See <a href=https://docs.easydigitaldownloads.com/article/1455-amazon-s3-creating-an-iam-user>https://docs.easydigitaldownloads.com/article/1455-amazon-s3-creating-an-iam-user</a>.</li>
-      <li>Set up the <a href=https://github.com/discentem/glazier-config/blob/master/cmd/root.go#L59-L61>required environment variables</a>.</li>
+      <li>Set up the <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/cmd/root.go#L60-L72">required environment variables</a>.</li>
       <li>Install <a href=https://golang.org/dl/>go</a>.</li>
-      <li>Run <text style="font-family:monospace,monospace;font-size: 1em">go run sync.go</text> from within <text style="font-family:monospace,monospace;font-size: 1em">glazier-starter-kit/tools/</text>.</li>
-      <li> Profit! </li>
+      <li>Run <text style="font-family:monospace,monospace;font-size: 1em">go run main.go sync</text> from within <text style="font-family:monospace,monospace;font-size: 1em">glazier-starter-kit/tools/</text>.</li>
       </ul>
       </body>
    </details>
-1. Make note of web server's url. If you are using s3, it will be https://bucketname.amazonaws.com/.
+1. Make note of web server's url. If you are using s3, it will be in the form of https://yourbucketname.s3.amazonaws.com/.
 
-#### Creating a WinPE iso with bootstrap_winpe.ps1
+#### Create the WinPE ISO and USB
+Back on your virtual machine
 
-1. Create 
+1. Launch Powershell as an Administrator again and start a new session with an execution policy of bypass. 
+   ```cmd
+   powershell.exe -ExecutionPolicy Bypass
+   ```
+1. Run the `bootstrap_winpe.ps1` script. Note, the script may be in a different location on your machine, depending on where you cloned `glazier-starter-kit`.
+   ```cmd
+   C:\glazier-starter-kit\tools\bootstrap_winpe.ps1 --config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_GOES_HERE
+   ```
+   After a few minutes you should see output like this.
+   ```cmd
+   ...
+   2021-06-18-105336 New-OSDCloud.iso Completed in 00 minutes 10 seconds                                   
+   OSDCloud ISO created at C:\OSDCloud\OSDCloud.iso
+   ``` 
+   
+   For a full breakdown of what this script does, check out the code comments at https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1. In summary [bootstrap_winpe.ps1](https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1):
+   - Installs the Chocolatey package manager
+   - Installs Windows ADK and the WinPE components with Chocolatey
+   - Installs and imports the [OSDeploy](https://github.com/OSDeploy/OSD) powershell module
+   - Creates a [OSDCloud template](https://osdcloud.osdeploy.com/get-started/new-osdcloud.template) and a [OSDCloud workspace](https://osdcloud.osdeploy.com/functions/osdcloud.workspace)
+   - Downloads Python
+   - Installs your drivers into the wim
+   - Mounts a `boot.wim`
+   - Installs Python (in the wim)
+   - Installs git (with chocolatey)
+   - Clones [Glazier](https://github.com/google/glazier) into the mounted wim and runs git pull
+   - Installs Glazier's python requirements
+   - Writes a custom `startnet.cmd` which will prompt for Wifi and auto start Glazier upon booting the wim
+   - Generates an iso with all of the above :) 
+
+   It is safe to run the script multiple times. Some steps are idempotent. Others are repeated unnecessarily but will continue to complete successfully.
+
+
+1. Use your favorite tool to create a bootable usb of `C:\OSDCloud\OSDCloud_NoPrompt.iso`. I've been using [New-OSDCloud.usb](https://osdcloud.osdeploy.com/get-started/new-osdcloud.usb) but theoretically you could use UNetBootin, Rufus, or another similiar tool.
+
+#### Start "Imaging"
+1. Boot one of the machines in your fleet from your newly created usb.
+1. Upon booting the usb, if you aren't connected to ethernet, you'll be prompted to select a Wifi network.
+
+   ![wifi network selection](/images/winpe/1.png)
+
+   ![wifi password prompt](/images/winpe/2.png)
+
+1. After getting connected to the internet, `autobuild.ps1` will run. This is heavily borrowed from @tsknet's example [autobuild.ps1](https://github.com/google/glazier/commit/6e9b94bfeaa0a0b5c6a908c337c0a488cd6fe600#diff-4130388a9ea73c798df0683813708bfd3cdfb1e25ff8d4e4ddf2af10746c7691). Thanks again for sharing that!
+
+   ```cmd
+   X:\windows\system32>powershell -NoProfile -NoLogo -WindowStyle Maximized -NoExit
+   -File "X:\Windows\System32\autobuild.ps1" -config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_HERE
+   ```
+
+1. If you are using Glazier with my [original config files](https://github.com/discentem/glazier-starter-kit/tree/master/glazier-repo), next you'll see this screen. 
+
+   <img src="/images/winpe/8.png" alt="Picture of the UI notifying user that build will start in 1 minute" width="800"/>
+
+   You see this because I configured it in [this build.yaml file](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L9-L19). See https://google.github.io/glazier/yaml/chooser_ui for more info.
+
+    ```yaml
+   - pin: ''
+      choice:
+         name: test_thing
+         type: toggle
+         prompt: "test toggle"
+         options: [
+            {label: 'False', value: False, tip: ''},
+            {label: 'True', value: True, tip: ''},
+         ]
+   - pin: ''
+      ShowChooser: []
+   ```
+
+   The logo is copied from https://github.com/discentem/glazier-starter-kit/blob/master/glazier-resources/logo.gif to the wim: https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1#L132. 
+   
+   The logo is expected to be in the [resources directory](https://github.com/discentem/glazier-starter-kit/blob/master/tools/autobuild.ps1#L18): https://github.com/google/glazier/blob/master/glazier/chooser/chooser.py#L98. 
+
+1.    
