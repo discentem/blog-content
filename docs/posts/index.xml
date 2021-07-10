@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>BK</title>
-    <link>https://bkurtz.io/</link>
-    <description>Recent content on BK</description>
+    <title>Posts on BK</title>
+    <link>https://bkurtz.io/posts/</link>
+    <description>Recent content in Posts on BK</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 10 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://bkurtz.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://bkurtz.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting started with Windows Imaging &amp; Glazier (Part 1)</title>
       <link>https://bkurtz.io/posts/glazier/</link>
