@@ -1,6 +1,6 @@
 ---
 title: "Getting started with Windows Imaging & Glazier (Part 1)"
-date: 2021-06-12
+date: 2021-07-10
 draft: true
 ---
 # What is Glazier? 
@@ -243,14 +243,16 @@ Back on your virtual machine
    
    Glazier expects the logo to be in the [resources directory](https://github.com/discentem/glazier-starter-kit/blob/master/tools/autobuild.ps1#L18): https://github.com/google/glazier/blob/master/glazier/chooser/chooser.py#L98. 
 
-1. Finally, Glazier will run the powershell commands I configured it to run. 
+1. Finally, Glazier will run the powershell commands I [configured it to run](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3). 
 
    <img src="/images/winpe/9.png" alt="Picture of the output of Get-Time running inside of Glazier" width="800"/>
 
 **Yay! We did it! Wait. What did we do exactly?**
 
-### What to do next & future improvements
+### Future improvements
 
-#### We should _actually_ partition the computer we were "imaging"
-- Problem: You might have noticed we didn't really "image" anything. We just told Glazier to [give us the date](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) 🥲. 
-- Solution: 
+#### We should _actually_ partition the computer we were "imaging".
+- Problem: You might have noticed we didn't really "image" anything. We just told Glazier to [give us the date](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) and exit 🥲. 
+- Solution: Write a powershell that actually partitions the drive and expands a vanilla Windows 10 wim onto the drive. Something [like this](https://github.com/OSDeploy/OSD/blob/master/Public/OSDCloud/Invoke-OSDCloud.ps1#L428) from OSDCloud.
+
+#### We should automate some "post-imaging" tasks once booted into the host os.

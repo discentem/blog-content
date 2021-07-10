@@ -1,6 +1,6 @@
 theme = "m10c"
-
-baseURL = "http://example.com/"
+publishDir = "root"
+baseURL = "https://bkurtz.io"
 languageCode = "en-us"
 title = "BK"
 author = "Brandon Kurtz"
