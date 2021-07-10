@@ -1,7 +1,7 @@
 ---
 title: "Getting started with Windows Imaging & Glazier (Part 1)"
 date: 2021-07-10
-draft: false
+draft: true
 ---
 # What is Glazier? 
 
