@@ -1,5 +1,5 @@
 theme = "m10c"
-publishDir = "root"
+publishDir = "docs"
 baseURL = "https://bkurtz.io"
 languageCode = "en-us"
 title = "BK"
