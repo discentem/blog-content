@@ -1,8 +1,8 @@
 theme = "m10c"
 publishDir = "docs"
 baseURL = "https://bkurtz.io"
-languageCode = "en-us"
 title = "BK"
+languageCode = "en-us"
 author = "Brandon Kurtz"
 googleAnalytics = ""
 
@@ -11,7 +11,7 @@ googleAnalytics = ""
 
 [params]
     description = "I do MacOps and WinOps @ Airbnb. I like to use golang, config management, and open-source management tools. Views are my own."
-
+    avatar = "static/avatar.jpg"
 [[menu.main]]
     url = "/"
     name = "Blog"
