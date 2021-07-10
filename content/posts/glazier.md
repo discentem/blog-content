@@ -18,9 +18,13 @@ From [https://github.com/google/glazier#glazier](https://github.com/google/glazi
 
 > See our [docs site](https://google.github.io/glazier) for how you can get started with Glazier.
 
-[The setup overview](https://google.github.io/glazier/setup/), however, leaves a lot to be desired. Hence why I am writing this blog post: 
+However, [The setup overview](https://google.github.io/glazier/setup/) doesn't come "with the batteries included". The authors expect that you already know how to create WIMs, use the dism cli tool, and some other common WinAdmin tasks. This is a completely fair expectation. 
 
-I hope to streamline some of the setup details and share a reproducible way to create a WinPE iso that supports Glazier. 
+However: 
+- I had am not a WinAdmin by trade.
+- I was worried that even if I set up Glazier by hand successfully, I'd never remember the exact steps required to do it again. 
+
+Thus, I worked hard streamline and automate the setup details and share a reproducible way to create a WinPE iso that supports Glazier. I hope you find the results useful :) 
 
 # Set up Glazier
 
@@ -98,6 +102,8 @@ In order to achieve this, you'll need to do the following steps on **each device
 
 ### Setting up Glazier server
 
+> It's just a web server™
+
 #### Set up a web server
 
 Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point](https://github.com/google/glazier/tree/master/docs/setup#distribution-point), we need to set up a web server to host our Glazier config files. I'm going to use [Amazon S3](https://aws.amazon.com/s3/) but you can use any web server that supports https. A few important notes:
@@ -170,9 +176,12 @@ Back on your virtual machine
    ```
    After a few minutes you should see output like this.
    ```cmd
-   ...
-   2021-06-18-105336 New-OSDCloud.iso Completed in 00 minutes 10 seconds                                   
+   Done.
+   NoPromptIso: C:\OSDCloud\OSDCloud_NoPrompt.iso
+   =========================================================================
+   2021-06-27-142237 New-OSDCloud.iso Completed in 00 minutes 10 seconds
    OSDCloud ISO created at C:\OSDCloud\OSDCloud.iso
+   =========================================================================
    ``` 
    
    For a full breakdown of what this script does, check out the code comments at https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1. In summary [bootstrap_winpe.ps1](https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1):
@@ -188,12 +197,12 @@ Back on your virtual machine
    - Clones [Glazier](https://github.com/google/glazier) into the mounted wim and runs git pull
    - Installs Glazier's python requirements
    - Writes a custom `startnet.cmd` which will prompt for Wifi and auto start Glazier upon booting the wim
-   - Generates an iso with all of the above :) 
+   - Generates an iso with all of the above
 
-   It is safe to run the script multiple times. Some steps are idempotent. Others are repeated unnecessarily but will continue to complete successfully.
+   It is safe to run the script multiple times. Some steps are idempotent. Others are repeated unnecessarily but will result in the correct iso.
 
 
-1. Use your favorite tool to create a bootable usb of `C:\OSDCloud\OSDCloud_NoPrompt.iso`. I've been using [New-OSDCloud.usb](https://osdcloud.osdeploy.com/get-started/new-osdcloud.usb) but theoretically you could use UNetBootin, Rufus, or another similiar tool.
+1. Use your favorite tool to create a bootable usb of `C:\OSDCloud\OSDCloud_NoPrompt.iso`. I've been using [New-OSDCloud.usb](https://osdcloud.osdeploy.com/get-started/new-osdcloud.usb) but theoretically UNetBootin, Rufus, or another similiar tool will work just fine.
 
 #### Start "Imaging"
 1. Boot one of the machines in your fleet from your newly created usb.
@@ -232,6 +241,16 @@ Back on your virtual machine
 
    The logo is copied from https://github.com/discentem/glazier-starter-kit/blob/master/glazier-resources/logo.gif to the wim: https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1#L132. 
    
-   The logo is expected to be in the [resources directory](https://github.com/discentem/glazier-starter-kit/blob/master/tools/autobuild.ps1#L18): https://github.com/google/glazier/blob/master/glazier/chooser/chooser.py#L98. 
+   Glazier expects the logo to be in the [resources directory](https://github.com/discentem/glazier-starter-kit/blob/master/tools/autobuild.ps1#L18): https://github.com/google/glazier/blob/master/glazier/chooser/chooser.py#L98. 
 
-1.    
+1. Finally, Glazier will run the powershell commands I configured it to run. 
+
+   <img src="/images/winpe/9.png" alt="Picture of the output of Get-Time running inside of Glazier" width="800"/>
+
+**Yay! We did it! Wait. What did we do exactly?**
+
+### What to do next & future improvements
+
+#### We should _actually_ partition the computer we were "imaging"
+- Problem: You might have noticed we didn't really "image" anything. We just told Glazier to [give us the date](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) 🥲. 
+- Solution: 
