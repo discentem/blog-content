@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on BK</title>
+    <link>https://bkurtz.io/posts/</link>
+    <description>Recent content in Posts on BK</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 10 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://bkurtz.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting started with Windows Imaging &amp; Glazier (Part 1)</title>
+      <link>https://bkurtz.io/posts/glazier/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://bkurtz.io/posts/glazier/</guid>
+      <description>What is Glazier? From https://github.com/google/glazier#glazier and https://github.com/google/glazier#why-glazier:
+ Glazier is a tool developed at Google for automating Windows operating system deployments.
+  Glazier was created with the following 3 core principles in mind: Text-Based &amp;amp; Code-Driven, Scalability, and Extensibility.
+ Sounds awesome. How do I get started? The Glazier readme suggests:
+ See our docs site for how you can get started with Glazier.
+ However, The setup overview doesn&amp;rsquo;t come &amp;ldquo;with the batteries included&amp;rdquo;.</description>
+    </item>
+    
+  </channel>
+</rss>

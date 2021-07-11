@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Getting started with Windows Imaging &amp; Glazier (Part 1) // BK</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.83.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://bkurtz.io/css/main.min.4a7ec8660f9a44b08c4da97c5f2e31b1192df1d4d0322e65c0dbbc6ecb1b863f.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Getting started with Windows Imaging &amp; Glazier (Part 1)"/>
+<meta name="twitter:description" content="What is Glazier? From https://github.com/google/glazier#glazier and https://github.com/google/glazier#why-glazier:
+ Glazier is a tool developed at Google for automating Windows operating system deployments.
+  Glazier was created with the following 3 core principles in mind: Text-Based &amp; Code-Driven, Scalability, and Extensibility.
+ Sounds awesome. How do I get started? The Glazier readme suggests:
+ See our docs site for how you can get started with Glazier.
+ However, The setup overview doesn&rsquo;t come &ldquo;with the batteries included&rdquo;."/>
+
+    <meta property="og:title" content="Getting started with Windows Imaging &amp; Glazier (Part 1)" />
+<meta property="og:description" content="What is Glazier? From https://github.com/google/glazier#glazier and https://github.com/google/glazier#why-glazier:
+ Glazier is a tool developed at Google for automating Windows operating system deployments.
+  Glazier was created with the following 3 core principles in mind: Text-Based &amp; Code-Driven, Scalability, and Extensibility.
+ Sounds awesome. How do I get started? The Glazier readme suggests:
+ See our docs site for how you can get started with Glazier.
+ However, The setup overview doesn&rsquo;t come &ldquo;with the batteries included&rdquo;." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bkurtz.io/posts/glazier/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-10T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-07-10T00:00:00&#43;00:00" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>BK</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Blog</a>
+      </nav>
+      <p>I do MacOps and WinOps @ Airbnb. I like to use golang, config management, and open-source management tools. Views are my own.</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/discentem/" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://macadmins.slack.com/messages/D1PJBJWLT" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-slack">
+  <title>slack</title>
+  <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"></path><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"></path><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"></path><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"></path><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"></path><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"></path><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com/muffins222221" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+          <a href="https://www.linkedin.com/in/brandon-kurtz/" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Getting started with Windows Imaging &amp; Glazier (Part 1)</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 10, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          9 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="what-is-glazier">What is Glazier?</h1>
+<p>From <a href="https://github.com/google/glazier#glazier">https://github.com/google/glazier#glazier</a> and <a href="https://github.com/google/glazier#why-glazier">https://github.com/google/glazier#why-glazier</a>:</p>
+<blockquote>
+<p>Glazier is a tool developed at Google for automating Windows operating system deployments.</p>
+</blockquote>
+<blockquote>
+<p>Glazier was created with the following 3 core principles in mind: Text-Based &amp; Code-Driven, Scalability, and Extensibility.</p>
+</blockquote>
+<h3 id="sounds-awesome-how-do-i-get-started">Sounds awesome. How do I get started?</h3>
+<p><a href="https://github.com/google/glazier/blob/master/README.md">The Glazier readme</a> suggests:</p>
+<blockquote>
+<p>See our <a href="https://google.github.io/glazier">docs site</a> for how you can get started with Glazier.</p>
+</blockquote>
+<p>However, <a href="https://google.github.io/glazier/setup/">The setup overview</a> doesn&rsquo;t come &ldquo;with the batteries included&rdquo;. The authors expect that you already know how to create WIMs, use the dism cli tool, and some other common WinAdmin tasks. This is a completely fair expectation.</p>
+<p>However:</p>
+<ul>
+<li>I had am not a WinAdmin by trade.</li>
+<li>I was worried that even if I set up Glazier by hand successfully, I&rsquo;d never remember the exact steps required to do it again.</li>
+</ul>
+<p>Thus, I worked hard streamline and automate the setup details and share a reproducible way to create a WinPE iso that supports Glazier. I hope you find the results useful :)</p>
+<h1 id="set-up-glazier">Set up Glazier</h1>
+<h3 id="create-a-winpe-factory">Create a WinPE &ldquo;factory&rdquo;</h3>
+<ol>
+<li>
+<p>Set up a Windows 10 virtual machine. We&rsquo;ll use this VM later to create a WinPE iso.</p>
+</li>
+<li>
+<p>Clone my <code>glazier-starter-kit</code> repository.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">git clone https://github.com/discentem/glazier-starter-kit.git
+</code></pre></div><p>This repository contains 3 main things:</p>
+<ul>
+<li><a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1">a powershell script</a> that automatically generates a WinPE iso with Glazier and all of its dependencies 🎉</li>
+<li><a href="https://github.com/discentem/glazier-starter-kit/tree/master/glazier-repo">a complete example set</a> of Glazier config files</li>
+<li><a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/main.go">a golang script</a> that can sync Glazier config files to s3</li>
+</ul>
+<p>I will discuss these things in more detail later on. For now, let&rsquo;s move on to drivers.</p>
+</li>
+</ol>
+<h3 id="gather-drivers-from-your-device-fleet">Gather drivers from your device fleet</h3>
+<p>As per Glazier&rsquo;s <a href="https://github.com/google/glazier/tree/master/docs/setup#requirements-1">boot media requirements</a>, we need to make sure our WinPE image includes</p>
+<blockquote>
+<p>Any drivers required to enable the local NIC/Video/Storage on the device. Network connectivity during WinPE is necessary to reach the distribution point.</p>
+</blockquote>
+<p>In order to achieve this, you&rsquo;ll need to do the following steps on <strong>each device model</strong> that you want your Windows 10 image to support. One of the laptop models in my fleet is the <code>Dell XPS 13 9370</code>, so I&rsquo;ll be doing these steps on that.</p>
+<ol>
+<li>
+<p>Grab a laptop from your fleet. Make sure Windows 10 is up-to-date on this device and that all the latest drivers are installed. I am working with a Dell machine, so I used <a href="https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=34t96">Dell Command Update</a> to update all of the drivers.</p>
+</li>
+<li>
+<p>On the laptop, export all of this device&rsquo;s drivers with <a href="https://docs.microsoft.com/en-us/powershell/module/dism/export-windowsdriver?view=windowsserver2019-ps">Export-WindowsDriver</a>. You will need to launch Powershell as an Administrator.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Export-Windowsdriver -Online -Destination c:\drivers
+</code></pre></div><p>After a few minutes you should see output that looks something like this. This is only a partial snippet of the output.</p>
+<pre><code>...
+Driver           : oem25.inf
+OriginalFileName : C:\Windows\System32\DriverStore\FileRepository\killernetworkextension.inf
+                   _amd64_635597853a943a8a\killernetworkextension.inf
+Inbox            : False
+ClassName        : Extension
+BootCritical     : False
+ProviderName     : Rivet Networks LLC
+Date             : 4/16/2020 12:00:00 AM
+Version          : 2.2.3267.0
+...
+...
+Driver           : oem28.inf
+OriginalFileName : C:\Windows\System32\DriverStore\FileRepository\killernetworkcomponent.inf
+                   _amd64_2caa3873bf7cf75d\killernetworkcomponent.inf
+Inbox            : False
+ClassName        : SoftwareComponent
+BootCritical     : False
+ProviderName     : Rivet Networks LLC
+Date             : 4/16/2020 12:00:00 AM
+Version          : 2.2.3267.0
+</code></pre></li>
+<li>
+<p>Copy the entire contents of <code>C:\drivers</code> on the laptop to <code>C:\drivers</code> on your Windows 10 virtual machine.</p>
+<p>Recall that we technically only need drivers related to NIC, Video, or Storage for WinPE. However, because I&rsquo;m lazy, I&rsquo;ll just copy all of the drivers.</p>
+<p>After copying <code>C:\drivers</code> back to the virtual machine, the directory should look something like this, with each subfolder containing the files for an individual driver:
+(partial snippet)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">PS C:\Users\brandon&gt; ls C:\drivers\
+
+Directory: C:\drivers
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         6/19/2021   5:01 PM                atheros_bth.inf_amd64_059e038b6e018050
+d-----         6/19/2021   5:01 PM                cui_dch.inf_amd64_b8e01d9e8716d2a7
+d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_amd64_dcc202b5af4a34b5
+...
+</code></pre></div></li>
+<li>
+<p>Repeat the above steps 1-3 above on each device model that you want to support.</p>
+</li>
+</ol>
+<h3 id="setting-up-glazier-server">Setting up Glazier server</h3>
+<blockquote>
+<p>It&rsquo;s just a web server™</p>
+</blockquote>
+<h4 id="set-up-a-web-server">Set up a web server</h4>
+<p>Per <a href="https://github.com/google/glazier/tree/master/docs/setup#distribution-point">https://github.com/google/glazier/tree/master/docs/setup#distribution-point</a>, we need to set up a web server to host our Glazier config files. I&rsquo;m going to use <a href="https://aws.amazon.com/s3/">Amazon S3</a> but you can use any web server that supports https. A few important notes:</p>
+<ul>
+<li>By default, Glazier does not provide authentication for downloading resources. So your web server needs to be open to the internet.</li>
+<li><a href="https://github.com/google/fresnel">Fresnel</a>, another open-source project from Google&rsquo;s WinOps team, can provide authenticated downloads for Glazier. However, Fresnel is out-of-scope for this post.</li>
+</ul>
+<p><strong>If you aren&rsquo;t using s3</strong>, set up your own web service, and skip to <a href="#get-familiar-with-glazier">Get familiar with Glazier</a></p>
+<h5 id="set-up-s3">Set up S3</h5>
+<ol>
+<li>
+<p>Create an S3 bucket. You can do this via the AWS Console, via <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket">Terraform&rsquo;s AWS provider</a>, or another tool of your choice. For more information see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html">https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html</a>.</p>
+</li>
+<li>
+<p>Turn off the <code>Block Public Access</code> settings.</p>
+<blockquote>
+<p>The AWS console will show you persistent warnings that you should not do this because it is generally <em>not</em> recommended. However, we need to do this for Glazier because we do not have <a href="https://github.com/google/fresnel">Fresnel</a> set up.</p>
+</blockquote>
+<p><img src="/images/s3/public_access.png" alt="s3 public access"></p>
+</li>
+<li>
+<p>Grant <code>Everyone (public)</code> read and list permissions on the s3 bucket.</p>
+<p><img src="/images/s3/everyone_list_read.png" alt="s3 everyone list and read"></p>
+</li>
+</ol>
+<h4 id="get-familiar-with-glazier">Get familiar with Glazier</h4>
+<ol>
+<li>
+<p>Take a few minutes to read over the following resources. These docs will help you become familiar the layout and syntax of Glazier configuration files so that you can customize Glazier for your environment.</p>
+<ul>
+<li><a href="https://google.github.io/glazier/setup/config_layout">https://google.github.io/glazier/setup/config_layout</a>. This page goes into great detail about the layout of a Glazier distribution point and Glazier config files.</li>
+<li><a href="https://github.com/google/glazier/tree/master/examples">https://github.com/google/glazier/tree/master/examples</a> has a few good examples of <code>build.yaml</code> files which show off some of the actions Glazier is capable of.</li>
+<li><a href="https://github.com/google/glazier/blob/master/docs/actions.md#actions">https://github.com/google/glazier/blob/master/docs/actions.md#actions</a>. This page describes all of the existing Glazier actions (aka functions). You can also <a href="https://github.com/google/glazier/blob/master/docs/setup/new_actions.md">create your own actions</a>.</li>
+</ul>
+</li>
+<li>
+<p>If desired, customize the various Glazier config files in <code>glazier-starter-kit/glazier-repo</code> and/or add new files.</p>
+<p>You don&rsquo;t necessarily need to customize anything at first. <code>glazier-starter-kit/glazier-repo</code> contains a <em>complete</em> set of config files. <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3">These basic configs</a> won&rsquo;t accomplish very much but they will enough for a Glazier proof-of-concept.</p>
+</li>
+</ol>
+<h4 id="upload-glazier-configs">Upload Glazier configs</h4>
+<ol>
+<li>
+<p>Upload the contents of <code>glazier-starter-kit/glazier-repo</code>, with any additions/modifications you&rsquo;ve made, to your web server. The root of your web server should look something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">% ls -1
+dev
+stable
+version-info.yaml
+</code></pre></div><details>
+   <summary>If you are using Amazon S3 and want a fancy go binary for syncing content to your Glazier server</summary>
+   <body>
+   <p>&emsp;Use my <a href=https://github.com/discentem/glazier-config/blob/master/sync.go>sync.go</a> script:</p>
+   <ul>
+   <li>Set up an IAM user for S3 uploads. See <a href=https://docs.easydigitaldownloads.com/article/1455-amazon-s3-creating-an-iam-user>https://docs.easydigitaldownloads.com/article/1455-amazon-s3-creating-an-iam-user</a>.</li>
+   <li>Set up the <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/cmd/root.go#L60-L72">required environment variables</a>.</li>
+   <li>Install <a href=https://golang.org/dl/>go</a>.</li>
+   <li>Run <text style="font-family:monospace,monospace;font-size: 1em">go run main.go sync</text> from within <text style="font-family:monospace,monospace;font-size: 1em">glazier-starter-kit/tools/</text>.</li>
+   </ul>
+   </body>
+</details>
+</li>
+<li>
+<p>Make note of web server&rsquo;s url. If you are using s3, it will be in the form of <a href="https://yourbucketname.s3.amazonaws.com/">https://yourbucketname.s3.amazonaws.com/</a>.</p>
+</li>
+</ol>
+<h4 id="create-the-winpe-iso-and-usb">Create the WinPE ISO and USB</h4>
+<p>Back on your virtual machine</p>
+<ol>
+<li>
+<p>Launch Powershell as an Administrator again and start a new session with an execution policy of bypass.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">powershell.exe -ExecutionPolicy Bypass
+</code></pre></div></li>
+<li>
+<p>Run the <code>bootstrap_winpe.ps1</code> script. Note, the script may be in a different location on your machine, depending on where you cloned <code>glazier-starter-kit</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\glazier-starter-kit\tools\bootstrap_winpe.ps1<span style="color:#75715e"> --config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_GOES_HERE</span>
+</code></pre></div><p>After a few minutes you should see output like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Done.
+NoPromptIso: C:\OSDCloud\OSDCloud_NoPrompt.iso
+=========================================================================
+2021-06-27-142237 New-OSDCloud.iso Completed in 00 minutes 10 seconds
+OSDCloud ISO created at C:\OSDCloud\OSDCloud.iso
+=========================================================================
+</code></pre></div><p>For a full breakdown of what this script does, check out the code comments at <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1">https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1</a>. In summary <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1">bootstrap_winpe.ps1</a>:</p>
+<ul>
+<li>Installs the Chocolatey package manager</li>
+<li>Installs Windows ADK and the WinPE components with Chocolatey</li>
+<li>Installs and imports the <a href="https://github.com/OSDeploy/OSD">OSDeploy</a> powershell module</li>
+<li>Creates a <a href="https://osdcloud.osdeploy.com/get-started/new-osdcloud.template">OSDCloud template</a> and a <a href="https://osdcloud.osdeploy.com/functions/osdcloud.workspace">OSDCloud workspace</a></li>
+<li>Downloads Python</li>
+<li>Installs your drivers into the wim</li>
+<li>Mounts a <code>boot.wim</code></li>
+<li>Installs Python (in the wim)</li>
+<li>Installs git (with chocolatey)</li>
+<li>Clones <a href="https://github.com/google/glazier">Glazier</a> into the mounted wim and runs git pull</li>
+<li>Installs Glazier&rsquo;s python requirements</li>
+<li>Writes a custom <code>startnet.cmd</code> which will prompt for Wifi and auto start Glazier upon booting the wim</li>
+<li>Generates an iso with all of the above</li>
+</ul>
+<p>It is safe to run the script multiple times. Some steps are idempotent. Others are repeated unnecessarily but will result in the correct iso.</p>
+</li>
+<li>
+<p>Use your favorite tool to create a bootable usb of <code>C:\OSDCloud\OSDCloud_NoPrompt.iso</code>. I&rsquo;ve been using <a href="https://osdcloud.osdeploy.com/get-started/new-osdcloud.usb">New-OSDCloud.usb</a> but theoretically UNetBootin, Rufus, or another similiar tool will work just fine.</p>
+</li>
+</ol>
+<h4 id="start-imaging">Start &ldquo;Imaging&rdquo;</h4>
+<ol>
+<li>
+<p>Boot one of the machines in your fleet from your newly created usb.</p>
+</li>
+<li>
+<p>Upon booting the usb, if you aren&rsquo;t connected to ethernet, you&rsquo;ll be prompted to select a Wifi network.</p>
+<p><img src="/images/winpe/1.png" alt="wifi network selection"></p>
+<p><img src="/images/winpe/2.png" alt="wifi password prompt"></p>
+</li>
+<li>
+<p>After getting connected to the internet, <code>autobuild.ps1</code> will run. This is heavily borrowed from @tsknet&rsquo;s example <a href="https://github.com/google/glazier/commit/6e9b94bfeaa0a0b5c6a908c337c0a488cd6fe600#diff-4130388a9ea73c798df0683813708bfd3cdfb1e25ff8d4e4ddf2af10746c7691">autobuild.ps1</a>. Thanks again for sharing that!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">X:\windows\system32<span style="color:#75715e">&gt;powershell -NoProfile -NoLogo -WindowStyle Maximized -NoExit</span>
+-File <span style="color:#e6db74">&#34;X:\Windows\System32\autobuild.ps1&#34;</span> -config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_HERE
+</code></pre></div></li>
+<li>
+<p>If you are using Glazier with my <a href="https://github.com/discentem/glazier-starter-kit/tree/master/glazier-repo">original config files</a>, next you&rsquo;ll see this screen.</p>
+<img src="/images/winpe/8.png" alt="Picture of the UI notifying user that build will start in 1 minute" width="800"/>
+<p>You see this because I configured it in <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L9-L19">this build.yaml file</a>. See <a href="https://google.github.io/glazier/yaml/chooser_ui">https://google.github.io/glazier/yaml/chooser_ui</a> for more info.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">pin</span>: <span style="color:#e6db74">&#39;&#39;</span>
+  <span style="color:#f92672">choice</span>:
+     <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test_thing</span>
+     <span style="color:#f92672">type</span>: <span style="color:#ae81ff">toggle</span>
+     <span style="color:#f92672">prompt</span>: <span style="color:#e6db74">&#34;test toggle&#34;</span>
+     <span style="color:#f92672">options</span>: [
+        {<span style="color:#f92672">label: &#39;False&#39;, value: False, tip</span>: <span style="color:#e6db74">&#39;&#39;</span>},
+        {<span style="color:#f92672">label: &#39;True&#39;, value: True, tip</span>: <span style="color:#e6db74">&#39;&#39;</span>},
+     ]
+- <span style="color:#f92672">pin</span>: <span style="color:#e6db74">&#39;&#39;</span>
+  <span style="color:#f92672">ShowChooser</span>: []
+</code></pre></div><p>The logo is copied from <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-resources/logo.gif">https://github.com/discentem/glazier-starter-kit/blob/master/glazier-resources/logo.gif</a> to the wim: <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1#L132">https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1#L132</a>.</p>
+<p>Glazier expects the logo to be in the <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/autobuild.ps1#L18">resources directory</a>: <a href="https://github.com/google/glazier/blob/master/glazier/chooser/chooser.py#L98">https://github.com/google/glazier/blob/master/glazier/chooser/chooser.py#L98</a>.</p>
+</li>
+<li>
+<p>Finally, Glazier will run the powershell commands I <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3">configured it to run</a>.</p>
+<img src="/images/winpe/9.png" alt="Picture of the output of Get-Time running inside of Glazier" width="800"/>
+</li>
+</ol>
+<p><strong>Yay! We did it! Wait. What did we do exactly?</strong></p>
+<p>We set up Glazier in a repeatable fashion and configured it to do some basic stuff. It was a proof-of-concept, but we can do much more! See <a href="https://google.github.io/glazier/actions">https://google.github.io/glazier/actions</a> for all the things Glazier can do.</p>
+<h3 id="ideas-for-part-2">Ideas for Part 2</h3>
+<h4 id="we-should-_actually_-partition-the-computer-we-were-imaging">We should <em>actually</em> partition the computer we were &ldquo;imaging&rdquo;.</h4>
+<ul>
+<li><strong>Problem</strong>: You might have noticed we didn&rsquo;t really &ldquo;image&rdquo; anything. We just told Glazier to <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3">give us the date</a> and exit 🥲.</li>
+<li><strong>Solution</strong>: Write a powershell script that actually partitions the drive and expands a vanilla Windows 10 wim onto the drive. Something <a href="https://github.com/OSDeploy/OSD/blob/master/Public/OSDCloud/Invoke-OSDCloud.ps1#L428">like this</a> from OSDCloud.</li>
+</ul>
+<h4 id="webservers-that-are-open-to-the-internet-are-bad">Webservers that are open to the internet are &ldquo;bad&rdquo;</h4>
+<ul>
+<li><strong>Problem</strong>: Glazier does not provide an authentication method for clients out-of-the-box. It is not secure by default.</li>
+<li><strong>Solution</strong>: Spin up <a href="https://github.com/google/fresnel">Google&rsquo;s Fresnel project</a></li>
+<li><strong>Stretch solution</strong>: Write equivalent of Fresnel that can be hosted somewhere other than AppEngine.</li>
+</ul>
+<h4 id="we-should-automate-some-post-imaging-tasks-once-booted-into-the-host-os">We should automate some &ldquo;post-imaging&rdquo; tasks once booted into the host os.</h4>
+<ul>
+<li><strong>Problem</strong>: Even if we solve partitioning the drive and installing vanilla Windows 10, we still haven&rsquo;t done anything special. We should also install some packages such as a configuration management (puppet, salt, etc) and a package manager (chocolatey, googet, gorilla, etc).</li>
+<li><strong>Solution</strong>: Add some Glazier config to automatically log in after the host os is installed and do stuff. See <a href="https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep">https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep</a> for more information.</li>
+</ul>
+<h4 id="we-could-write-some-new-glazier-actions-in-go-or-re-imagine-the-entire-tool">We could write some new Glazier actions in go or re-imagine the entire tool</h4>
+<ul>
+<li>
+<p><strong>Problem</strong>: Setting up Python in WinPE is a giant pain. If it were a single go binary, setup work be easier. It seems like the folks at Google <a href="https://github.com/google/glazier/tree/master/go">have the same idea</a>. But none of the Glazier actions currently use this code (as far as I can tell).</p>
+</li>
+<li>
+<p><strong>Possible Solutions</strong>:</p>
+<ul>
+<li>Write some Glazier actions that call the above go code</li>
+<li>A somewhat out-there idea: Write a completely new imaging tool that uses starlark instead of yaml with <a href="https://github.com/google/starlark-go">https://github.com/google/starlark-go</a>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="credits">Credits</h3>
+<ul>
+<li>Thank you to Google WinOps for writing Glazier. This tool has really captured my imagination.</li>
+<li>Thank you <a href="https://github.com/TsekNet">@tseknet</a> for always answering my questions and always jumping at the chance to improve Glazier&rsquo;s docs. You rock! I miss working with you buddy.</li>
+<li>Thank you <a href="https://twitter.com/seguraosd">@seguraosd</a> for writing the awesome OSDCloud tool.</li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
