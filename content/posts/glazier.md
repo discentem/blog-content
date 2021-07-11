@@ -251,16 +251,25 @@ Back on your virtual machine
 
 We set up Glazier in a repeatable fashion and configured it to do some basic stuff. It was a proof-of-concept, but we can do much more! See https://google.github.io/glazier/actions for all the things Glazier can do.
 
-### Future improvements for glazier-starter-kit
+### Ideas for Part 2
 
 #### We should _actually_ partition the computer we were "imaging".
-- Problem: You might have noticed we didn't really "image" anything. We just told Glazier to [give us the date](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) and exit 🥲. 
-- Solution: Write a powershell that actually partitions the drive and expands a vanilla Windows 10 wim onto the drive. Something [like this](https://github.com/OSDeploy/OSD/blob/master/Public/OSDCloud/Invoke-OSDCloud.ps1#L428) from OSDCloud.
+- **Problem**: You might have noticed we didn't really "image" anything. We just told Glazier to [give us the date](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) and exit 🥲. 
+- **Solution**: Write a powershell script that actually partitions the drive and expands a vanilla Windows 10 wim onto the drive. Something [like this](https://github.com/OSDeploy/OSD/blob/master/Public/OSDCloud/Invoke-OSDCloud.ps1#L428) from OSDCloud.
 
 #### We should automate some "post-imaging" tasks once booted into the host os.
-- Problem: Even if we partition the drive and install vanilla Windows 10, we still haven't done anything special. We should install some packages such as a configuration management (puppet, salt, etc) and a package manager (chocolatey, googet, gorilla, etc).
-- Solution: Add some Glazier config to automatically log in after the host os is installed and do stuff. See https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep for more information.
+- **Problem**: Even if we solve partitioning the drive and installing vanilla Windows 10, we still haven't done anything special. We should also install some packages such as a configuration management (puppet, salt, etc) and a package manager (chocolatey, googet, gorilla, etc).
+- **Solution**: Add some Glazier config to automatically log in after the host os is installed and do stuff. See https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep for more information.
+
+#### We could write some new Glazier actions in go or re-imagine the entire tool
+- **Problem**: Setting up Python in WinPE is a giant pain. If it were a single go binary, setup work be easier. It seems like the folks at Google [have the same idea](https://github.com/google/glazier/tree/master/go). But none of the Glazier actions currently use this code (as far as I can tell). 
+
+- **Possible Solutions**:
+   - Write some Glazier actions that are just wrappers for the above linked go code
+   - A somewhat out-there idea: Write a completely new imaging tool that uses starlark instead of yaml with https://github.com/google/starlark-go. 
 
 ### Credits
 
-- Thank you [@tseknet](https://github.com/TsekNet) for always answering my questions and jumping at the chance to improve Glazier's docs. You rock! I miss working with you buddy. 
+- Thank you to Google WinOps for writing Glazier. This tool has really captured my imagination.
+- Thank you [@tseknet](https://github.com/TsekNet) for always answering my questions and always jumping at the chance to improve Glazier's docs. You rock! I miss working with you buddy. 
+- Thank you [@seguraosd](https://twitter.com/seguraosd) for writing the awesome OSDCloud tool.
