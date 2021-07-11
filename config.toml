@@ -29,6 +29,3 @@ googleAnalytics = ""
 [[params.social]]
     icon = "linkedin"
     url = "https://www.linkedin.com/in/brandon-kurtz/"
-[[params.social]]
-    icon = "mail"
-    url = "mailto:kurtz.brandon@gmail.com"
