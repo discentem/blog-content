@@ -265,7 +265,7 @@ We set up Glazier in a repeatable fashion and configured it to do some basic stu
 - **Problem**: Setting up Python in WinPE is a giant pain. If it were a single go binary, setup work be easier. It seems like the folks at Google [have the same idea](https://github.com/google/glazier/tree/master/go). But none of the Glazier actions currently use this code (as far as I can tell). 
 
 - **Possible Solutions**:
-   - Write some Glazier actions that are just wrappers for the above linked go code
+   - Write some Glazier actions that call the above go code
    - A somewhat out-there idea: Write a completely new imaging tool that uses starlark instead of yaml with https://github.com/google/starlark-go. 
 
 ### Credits
