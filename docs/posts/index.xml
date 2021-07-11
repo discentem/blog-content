@@ -17,8 +17,8 @@
  Glazier is a tool developed at Google for automating Windows operating system deployments.
   Glazier was created with the following 3 core principles in mind: Text-Based &amp;amp; Code-Driven, Scalability, and Extensibility.
  Sounds awesome. How do I get started? The Glazier readme suggests:
- See our docs site for how you can get started with Glazier.
- However, The setup overview doesn&amp;rsquo;t come &amp;ldquo;with the batteries included&amp;rdquo;.</description>
+ See our [Glazier&amp;rsquo;s] docs site for how you can get started with Glazier.
+ However, The setup overview comes &amp;ldquo;without the batteries included&amp;rdquo;.</description>
     </item>
     
   </channel>
