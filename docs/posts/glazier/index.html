@@ -351,7 +351,7 @@ OSDCloud ISO created at C:\OSDCloud\OSDCloud.ISO
 <li><strong>Problem</strong>: Even if we solve partitioning the drive and install vanilla Windows 10, we still haven&rsquo;t done anything novel or special. We should also install some packages such as a configuration management tools (<a href="https://puppet.com/try-puppet/open-source-puppet/download/">Puppet</a>, <a href="https://saltproject.io/">Saltstack</a>, etc) and a package manager (<a href="https://chocolatey.org/">Chocolatey</a>, <a href="https://github.com/google/googet">Googet</a>, <a href="https://github.com/1dustindavis/gorilla">Gorilla</a>, etc).</li>
 <li><strong>Solution</strong>: Add some Glazier config to automatically log in after the host OS is installed and do stuff. See <a href="https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep">https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep</a> for some ideas.</li>
 </ul>
-<h4 id="we-could-write-some-new-glazier-actions-in-go-or-re-imagine-the-entire-tool">We could write some new Glazier actions in go or re-imagine the entire tool</h4>
+<h4 id="we-could-write-some-new-glazier-actions-in-go-or-re-imagine-the-entire-tool">We could write some new Glazier actions in go or re-imagine the entire tool.</h4>
 <ul>
 <li>
 <p><strong>Problem</strong>: Setting up Python in WinPE is a giant pain. If it were a single go binary, setup would be easier. It seems like the folks at Google <a href="https://github.com/google/glazier/tree/master/go">have the same idea</a>. But none of the Glazier actions currently use this code (yet).</p>
@@ -369,7 +369,7 @@ OSDCloud ISO created at C:\OSDCloud\OSDCloud.ISO
 <h3 id="credits">Credits</h3>
 <ul>
 <li>Thank you to Google WinOps for writing Glazier. This tool has really captured my imagination.</li>
-<li>Thank you <a href="https://twitter.com/contains_eng">@contains_eng</a> for inspiring to write something to help people set up Glazier. Sorry it&rsquo;s a few years late :P</li>
+<li>Thank you <a href="https://twitter.com/contains_eng">@contains_eng</a> for inspiring me to write something to help people set up Glazier. Sorry it&rsquo;s a few years late :P</li>
 <li>Thank you <a href="https://github.com/TsekNet">@tseknet</a> for always answering my questions and always jumping at the chance to improve Glazier&rsquo;s docs. You rock! I miss working with you buddy.</li>
 <li>Thank you <a href="https://twitter.com/seguraosd">@seguraosd</a> for writing the awesome OSDCloud tool.</li>
 </ul>

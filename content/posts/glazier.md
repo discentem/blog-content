@@ -266,7 +266,7 @@ We set up Glazier in a repeatable fashion and configured it to do some basic stu
 - **Problem**: Even if we solve partitioning the drive and install vanilla Windows 10, we still haven't done anything novel or special. We should also install some packages such as a configuration management tools ([Puppet](https://puppet.com/try-puppet/open-source-puppet/download/), [Saltstack](https://saltproject.io/), etc) and a package manager ([Chocolatey](https://chocolatey.org/), [Googet](https://github.com/google/googet), [Gorilla](https://github.com/1dustindavis/gorilla), etc).
 - **Solution**: Add some Glazier config to automatically log in after the host OS is installed and do stuff. See https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep for some ideas.
 
-#### We could write some new Glazier actions in go or re-imagine the entire tool
+#### We could write some new Glazier actions in go or re-imagine the entire tool.
 - **Problem**: Setting up Python in WinPE is a giant pain. If it were a single go binary, setup would be easier. It seems like the folks at Google [have the same idea](https://github.com/google/glazier/tree/master/go). But none of the Glazier actions currently use this code (yet). 
 
 - **Possible Solutions**:
@@ -280,6 +280,6 @@ File an issue or PR (pull request) against my blog at https://github.com/discent
 ### Credits
 
 - Thank you to Google WinOps for writing Glazier. This tool has really captured my imagination.
-- Thank you [@contains_eng](https://twitter.com/contains_eng) for inspiring to write something to help people set up Glazier. Sorry it's a few years late :P
+- Thank you [@contains_eng](https://twitter.com/contains_eng) for inspiring me to write something to help people set up Glazier. Sorry it's a few years late :P
 - Thank you [@tseknet](https://github.com/TsekNet) for always answering my questions and always jumping at the chance to improve Glazier's docs. You rock! I miss working with you buddy. 
 - Thank you [@seguraosd](https://twitter.com/seguraosd) for writing the awesome OSDCloud tool.
