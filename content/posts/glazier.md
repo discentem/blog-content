@@ -252,10 +252,15 @@ Back on your virtual machine
 We set up Glazier in a repeatable fashion and configured it to do some basic stuff. It was a proof-of-concept, but we can do much more! See https://google.github.io/glazier/actions for all the things Glazier can do.
 
 ### Ideas for Part 2
-
 #### We should _actually_ partition the computer we were "imaging".
 - **Problem**: You might have noticed we didn't really "image" anything. We just told Glazier to [give us the date](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) and exit 🥲. 
 - **Solution**: Write a powershell script that actually partitions the drive and expands a vanilla Windows 10 wim onto the drive. Something [like this](https://github.com/OSDeploy/OSD/blob/master/Public/OSDCloud/Invoke-OSDCloud.ps1#L428) from OSDCloud.
+
+#### Webservers that are open to the internet are "bad"
+
+- **Problem**: Glazier does not provide an authentication method for clients out-of-the-box. It is not secure by default. 
+- **Solution**: Spin up [Google's Fresnel project](https://github.com/google/fresnel)
+- **Stretch solution**: Write equivalent of Fresnel that can be hosted somewhere other than AppEngine.
 
 #### We should automate some "post-imaging" tasks once booted into the host os.
 - **Problem**: Even if we solve partitioning the drive and installing vanilla Windows 10, we still haven't done anything special. We should also install some packages such as a configuration management (puppet, salt, etc) and a package manager (chocolatey, googet, gorilla, etc).
