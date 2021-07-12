@@ -284,3 +284,4 @@ File an issue or PR (pull request) against my blog at https://github.com/discent
 - Thank you [@tseknet](https://github.com/TsekNet) for always answering my questions and always jumping at the chance to improve Glazier's docs. You rock! I miss working with you buddy. 
 - Thank you [@seguraosd](https://twitter.com/seguraosd) for writing the awesome OSDCloud tool.
 - Thank you [@editingemily](https://twitter.com/editingemily) for talking openly at your [MacDevOpsYVR keynote](https://www.youtube.com/watch?v=zn_t5JvlANI) about your struggle/journey to write a book. The scale of this blog post is nothing compared to a book, but you still inspired me to keep pushing through when I was struggling.
+- Thank you [@groob](https://twitter.com/wikiwalk) for introducing to me to [starlark-go](https://github.com/google/starlark-go). I haven't used it for any production tools yet but I keep trying to find a use case :) 
