@@ -283,3 +283,4 @@ File an issue or PR (pull request) against my blog at https://github.com/discent
 - Thank you [@contains_eng](https://twitter.com/contains_eng) for inspiring me to write something to help people set up Glazier. Sorry it's a few years late :P
 - Thank you [@tseknet](https://github.com/TsekNet) for always answering my questions and always jumping at the chance to improve Glazier's docs. You rock! I miss working with you buddy. 
 - Thank you [@seguraosd](https://twitter.com/seguraosd) for writing the awesome OSDCloud tool.
+- Thank you [@editingemily](https://twitter.com/editingemily) for talking openly at your [MacDevOpsYVR keynote](https://www.youtube.com/watch?v=zn_t5JvlANI) about your struggle/journey to write a book. The scale of this blog post is nothing compared to a book, but you still inspired me to keep pushing through when I was struggling.
