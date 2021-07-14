@@ -110,7 +110,7 @@
 <blockquote>
 <p>See our [Glazier&rsquo;s] <a href="https://google.github.io/glazier">docs site</a> for how you can get started with Glazier.</p>
 </blockquote>
-<p>However, <a href="https://google.github.io/glazier/setup/">The setup overview</a> comes &ldquo;without the batteries included&rdquo;. The authors expect that you already know how to create <a href="https://en.wikipedia.org/wiki/Windows_Imaging_Format">WIMs</a>, use the <a href="https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism---deployment-image-servicing-and-management-technical-reference-for-windows">dism</a> CLI tool, and some other common WinAdmin tasks. This is a completely fair expectation.</p>
+<p>However, <a href="https://google.github.io/glazier/setup/">The setup overview</a> comes &ldquo;without the batteries included&rdquo;. The authors expect that you already know how to create <a href="https://en.wikipedia.org/wiki/Windows_Imaging_Format">WIMs</a>, use the <a href="https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism---deployment-image-servicing-and-management-technical-reference-for-windows">dism</a> CLI tool, and some other common WinAdmin tasks. These expectations are completely fair.</p>
 <p>But:</p>
 <ul>
 <li>I didn&rsquo;t know how to use these tools. And</li>
@@ -192,7 +192,7 @@ d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_a
 <h4 id="set-up-a-web-server">Set up a web server</h4>
 <p>Per <a href="https://github.com/google/glazier/tree/master/docs/setup#distribution-point">https://github.com/google/glazier/tree/master/docs/setup#distribution-point</a>, we need to set up a web server to host our Glazier config files. I&rsquo;m going to use <a href="https://aws.amazon.com/s3/">Amazon S3</a> but you can use any web server that supports https. A few important notes:</p>
 <ul>
-<li>By default, Glazier does not provide web authentication for downloading resources. So your web server needs to be open to the internet, behind a network ACL, or some other form of device-based authentication.</li>
+<li>By default, Glazier does not provide web authentication for downloading resources. So your web server needs to be open to the internet, behind a network ACL, or have some other form of device-based authentication.</li>
 <li><a href="https://github.com/google/fresnel">Fresnel</a>, another open-source project from Google&rsquo;s WinOps team, can provide authenticated downloads for Glazier. However, Fresnel is out-of-scope for this post.</li>
 </ul>
 <p><strong>If you aren&rsquo;t using s3</strong>, set up your own web service, and skip to <a href="#get-familiar-with-glazier">Get familiar with Glazier</a>.</p>

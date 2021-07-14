@@ -18,7 +18,7 @@ From [https://github.com/google/glazier#glazier](https://github.com/google/glazi
 
 > See our [Glazier's] [docs site](https://google.github.io/glazier) for how you can get started with Glazier.
 
-However, [The setup overview](https://google.github.io/glazier/setup/) comes "without the batteries included". The authors expect that you already know how to create [WIMs](https://en.wikipedia.org/wiki/Windows_Imaging_Format), use the [dism](https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism---deployment-image-servicing-and-management-technical-reference-for-windows) CLI tool, and some other common WinAdmin tasks. This is a completely fair expectation. 
+However, [The setup overview](https://google.github.io/glazier/setup/) comes "without the batteries included". The authors expect that you already know how to create [WIMs](https://en.wikipedia.org/wiki/Windows_Imaging_Format), use the [dism](https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism---deployment-image-servicing-and-management-technical-reference-for-windows) CLI tool, and some other common WinAdmin tasks. These expectations are completely fair. 
 
 But: 
 - I didn't know how to use these tools. And
@@ -104,7 +104,7 @@ In order to achieve this, you'll need to do the following steps on **each device
 #### Set up a web server
 
 Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point](https://github.com/google/glazier/tree/master/docs/setup#distribution-point), we need to set up a web server to host our Glazier config files. I'm going to use [Amazon S3](https://aws.amazon.com/s3/) but you can use any web server that supports https. A few important notes:
-   - By default, Glazier does not provide web authentication for downloading resources. So your web server needs to be open to the internet, behind a network ACL, or some other form of device-based authentication.
+   - By default, Glazier does not provide web authentication for downloading resources. So your web server needs to be open to the internet, behind a network ACL, or have some other form of device-based authentication.
    - [Fresnel](https://github.com/google/fresnel), another open-source project from Google's WinOps team, can provide authenticated downloads for Glazier. However, Fresnel is out-of-scope for this post. 
    
 
