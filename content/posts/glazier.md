@@ -137,7 +137,7 @@ Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point
    
 1. If desired, fork `glazier-starter-kit/glazier-repo` and/or customize as necessary.
 
-   You don't necessarily need to customize anything at first. `glazier-starter-kit/glazier-repo` contains a _complete_ set of config files. [These basic configs](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) won't accomplish very much but they will enable you to create proof-of-concept setup of Glazier.
+   You don't necessarily need to customize anything at first. `glazier-starter-kit/glazier-repo` contains a _complete_ set of config files. [These basic configs](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) won't accomplish very much but they will enable you to create a proof-of-concept setup of Glazier.
 
 #### Upload Glazier configs
 
