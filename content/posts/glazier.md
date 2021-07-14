@@ -108,7 +108,7 @@ Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point
    - [Fresnel](https://github.com/google/fresnel), another open-source project from Google's WinOps team, can provide authenticated downloads for Glazier. However, Fresnel is out-of-scope for this post. 
    
 
-**If you aren't using s3**, set up your own web service, and skip to [Get familiar with Glazier](#get-familiar-with-glazier).
+**If you aren't using s3**: set up your own web service and skip to [Get familiar with Glazier](#get-familiar-with-glazier).
 
 ##### Set up S3
 
@@ -263,11 +263,11 @@ We set up Glazier in a repeatable fashion and configured it to do some basic stu
 - **Stretch solution**: Write equivalent of Fresnel that can be hosted somewhere other than AppEngine.
 
 #### We should automate some "post-imaging" tasks once booted into the host OS.
-- **Problem**: Even if we solve partitioning the drive and install vanilla Windows 10, we still haven't done anything novel or special. We should also install some packages such as a configuration management tools ([Puppet](https://puppet.com/try-puppet/open-source-puppet/download/), [Saltstack](https://saltproject.io/), etc) and a package manager ([Chocolatey](https://chocolatey.org/), [Googet](https://github.com/google/googet), [Gorilla](https://github.com/1dustindavis/gorilla), etc).
+- **Problem**: Even if we solve partitioning the drive and install vanilla Windows 10, we still haven't done anything novel or special. We should also install some packages such as a configuration management tool ([Puppet](https://puppet.com/try-puppet/open-source-puppet/download/) or [Saltstack](https://saltproject.io/)) and a package manager ([Chocolatey](https://chocolatey.org/), [Googet](https://github.com/google/googet), or [Gorilla](https://github.com/1dustindavis/gorilla)).
 - **Solution**: Add some Glazier config to automatically log in after the host OS is installed and do stuff. See https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep for some ideas.
 
 #### We could write some new Glazier actions in go or re-imagine the entire tool.
-- **Problem**: Setting up Python in WinPE is a giant pain. If it were a single go binary, setup would be easier. It seems like the folks at Google [have the same idea](https://github.com/google/glazier/tree/master/go). But none of the Glazier actions currently use this code (yet). 
+- **Problem**: Setting up Python in WinPE is a giant pain. If Glazier or Glazier configs revolved around single go binary setup would be easier. It seems like the folks at Google [have the same idea](https://github.com/google/glazier/tree/master/go). But none of the Glazier actions currently use this code (yet). 
 
 - **Possible Solutions**:
    - Write some Glazier actions that call the above Go code

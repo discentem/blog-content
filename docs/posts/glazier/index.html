@@ -195,7 +195,7 @@ d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_a
 <li>By default, Glazier does not provide web authentication for downloading resources. So your web server needs to be open to the internet, behind a network ACL, or have some other form of device-based authentication.</li>
 <li><a href="https://github.com/google/fresnel">Fresnel</a>, another open-source project from Google&rsquo;s WinOps team, can provide authenticated downloads for Glazier. However, Fresnel is out-of-scope for this post.</li>
 </ul>
-<p><strong>If you aren&rsquo;t using s3</strong>, set up your own web service, and skip to <a href="#get-familiar-with-glazier">Get familiar with Glazier</a>.</p>
+<p><strong>If you aren&rsquo;t using s3</strong>: set up your own web service and skip to <a href="#get-familiar-with-glazier">Get familiar with Glazier</a>.</p>
 <h5 id="set-up-s3">Set up S3</h5>
 <ol>
 <li>
@@ -227,7 +227,7 @@ d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_a
 </li>
 <li>
 <p>If desired, fork <code>glazier-starter-kit/glazier-repo</code> and/or customize as necessary.</p>
-<p>You don&rsquo;t necessarily need to customize anything at first. <code>glazier-starter-kit/glazier-repo</code> contains a <em>complete</em> set of config files. <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3">These basic configs</a> won&rsquo;t accomplish very much but they will enable you to create proof-of-concept setup of Glazier.</p>
+<p>You don&rsquo;t necessarily need to customize anything at first. <code>glazier-starter-kit/glazier-repo</code> contains a <em>complete</em> set of config files. <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3">These basic configs</a> won&rsquo;t accomplish very much but they will enable you to create a proof-of-concept setup of Glazier.</p>
 </li>
 </ol>
 <h4 id="upload-glazier-configs">Upload Glazier configs</h4>
@@ -348,13 +348,13 @@ OSDCloud ISO created at C:\OSDCloud\OSDCloud.ISO
 </ul>
 <h4 id="we-should-automate-some-post-imaging-tasks-once-booted-into-the-host-os">We should automate some &ldquo;post-imaging&rdquo; tasks once booted into the host OS.</h4>
 <ul>
-<li><strong>Problem</strong>: Even if we solve partitioning the drive and install vanilla Windows 10, we still haven&rsquo;t done anything novel or special. We should also install some packages such as a configuration management tools (<a href="https://puppet.com/try-puppet/open-source-puppet/download/">Puppet</a>, <a href="https://saltproject.io/">Saltstack</a>, etc) and a package manager (<a href="https://chocolatey.org/">Chocolatey</a>, <a href="https://github.com/google/googet">Googet</a>, <a href="https://github.com/1dustindavis/gorilla">Gorilla</a>, etc).</li>
+<li><strong>Problem</strong>: Even if we solve partitioning the drive and install vanilla Windows 10, we still haven&rsquo;t done anything novel or special. We should also install some packages such as a configuration management tool (<a href="https://puppet.com/try-puppet/open-source-puppet/download/">Puppet</a> or <a href="https://saltproject.io/">Saltstack</a>) and a package manager (<a href="https://chocolatey.org/">Chocolatey</a>, <a href="https://github.com/google/googet">Googet</a>, or <a href="https://github.com/1dustindavis/gorilla">Gorilla</a>).</li>
 <li><strong>Solution</strong>: Add some Glazier config to automatically log in after the host OS is installed and do stuff. See <a href="https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep">https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep</a> for some ideas.</li>
 </ul>
 <h4 id="we-could-write-some-new-glazier-actions-in-go-or-re-imagine-the-entire-tool">We could write some new Glazier actions in go or re-imagine the entire tool.</h4>
 <ul>
 <li>
-<p><strong>Problem</strong>: Setting up Python in WinPE is a giant pain. If it were a single go binary, setup would be easier. It seems like the folks at Google <a href="https://github.com/google/glazier/tree/master/go">have the same idea</a>. But none of the Glazier actions currently use this code (yet).</p>
+<p><strong>Problem</strong>: Setting up Python in WinPE is a giant pain. If Glazier or Glazier configs revolved around single go binary setup would be easier. It seems like the folks at Google <a href="https://github.com/google/glazier/tree/master/go">have the same idea</a>. But none of the Glazier actions currently use this code (yet).</p>
 </li>
 <li>
 <p><strong>Possible Solutions</strong>:</p>
