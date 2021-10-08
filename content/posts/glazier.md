@@ -20,9 +20,10 @@ From [https://github.com/google/glazier#glazier](https://github.com/google/glazi
 
 However, [The setup overview](https://google.github.io/glazier/setup/) comes "without the batteries included". The authors expect that you already know how to create [WIMs](https://en.wikipedia.org/wiki/Windows_Imaging_Format), use the [dism](https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism---deployment-image-servicing-and-management-technical-reference-for-windows) CLI tool, and some other common WinAdmin tasks. These expectations are completely fair. 
 
-But: 
-- I didn't know how to use these tools. And
-- I was worried that even if I set up Glazier by hand successfully once, I'd never remember the exact steps required to do it again. 
+
+However: 
+- I am not a WinAdmin by trade.
+- I was worried that even if I set up Glazier by hand successfully, I'd never remember the exact steps required to do it again. 
 
 Thus, I worked hard to streamline and automate the setup details and share a reproducible way to create a [WinPE](https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-intro) ISO that supports Glazier. I hope you find the results useful :) 
 
@@ -78,16 +79,16 @@ In order to achieve this, you'll need to do the following steps on **each device
    Version          : 2.2.3267.0
    ```
 
-1. Copy the entire contents of `C:\drivers` on the laptop to `C:\drivers` on your Windows 10 virtual machine. 
+1. Copy the entire contents of `C:\drivers` on the laptop to `C:\drivers\dell\xps\9370` on your Windows 10 virtual machine. 
       
       Recall that we technically only need drivers related to NIC, Video, or Storage for WinPE. However, because I'm lazy, I'll just copy all of the drivers.
       
       After copying `C:\drivers` back to the virtual machine, the directory should look something like this, with each subfolder containing the files for an individual driver: 
       (partial snippet)
       ```cmd
-      PS C:\Users\brandon> ls C:\drivers\
+      PS C:\Users\brandon> ls C:\drivers\dell\xps\9370
       
-      Directory: C:\drivers
+      Directory: C:\drivers\dell\xps\9370
 
       Mode                 LastWriteTime         Length Name
       ----                 -------------         ------ ----
@@ -96,7 +97,7 @@ In order to achieve this, you'll need to do the following steps on **each device
       d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_amd64_dcc202b5af4a34b5
       ...
       ```
-1. Repeat the above steps 1-3 above on each device model that you want to support.
+1. Repeat the above steps 1-3 above on each device model that you want to support, keeping a separate folder for each model. Reference the [total control](https://www.deploymentresearch.com/mdt-2013-lite-touch-driver-management/) method for driver management for more information.
 
 
 ### Setting up Glazier distribution point
@@ -104,7 +105,7 @@ In order to achieve this, you'll need to do the following steps on **each device
 #### Set up a web server
 
 Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point](https://github.com/google/glazier/tree/master/docs/setup#distribution-point), we need to set up a web server to host our Glazier config files. I'm going to use [Amazon S3](https://aws.amazon.com/s3/) but you can use any web server that supports https. A few important notes:
-   - By default, Glazier does not provide web authentication for downloading resources. So your web server needs to be open to the internet, behind a network ACL, or have some other form of device-based authentication.
+   - By default, Glazier does not provide web authentication for downloading resources. So your web server needs to be open to the internet, behind a network ACL, or some other form of device-based authentication.
    - [Fresnel](https://github.com/google/fresnel), another open-source project from Google's WinOps team, can provide authenticated downloads for Glazier. However, Fresnel is out-of-scope for this post. 
    
 
@@ -137,7 +138,10 @@ Per [https://github.com/google/glazier/tree/master/docs/setup#distribution-point
    
 1. If desired, fork `glazier-starter-kit/glazier-repo` and/or customize as necessary.
 
-   You don't necessarily need to customize anything at first. `glazier-starter-kit/glazier-repo` contains a _complete_ set of config files. [These basic configs](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) won't accomplish very much but they will enable you to create a proof-of-concept setup of Glazier.
+
+1. If desired, fork `glazier-starter-kit/glazier-repo` and/or customize as necessary. 
+
+   - You don't necessarily need to customize anything at first. `glazier-starter-kit/glazier-repo` contains a _complete_ set of config files. [These basic configs](https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3) won't accomplish very much but they will enough for a Glazier proof-of-concept.
 
 #### Upload Glazier configs
 
@@ -191,7 +195,7 @@ Back on your virtual machine
    - Creates a [OSDCloud template](https://osdcloud.osdeploy.com/get-started/new-osdcloud.template) and a [OSDCloud workspace](https://osdcloud.osdeploy.com/functions/osdcloud.workspace)
    - Downloads Python
    - Installs your drivers into the wim
-   - Mounts a `boot.wim`
+   - Mounts a `boot.wim` (expands the WinPE filesystem on disk)
    - Installs Python (in the wim)
    - Installs git (with chocolatey)
    - Clones [Glazier](https://github.com/google/glazier) into the mounted wim and runs git pull
@@ -266,8 +270,8 @@ We set up Glazier in a repeatable fashion and configured it to do some basic stu
 - **Problem**: Even if we solve partitioning the drive and install vanilla Windows 10, we still haven't done anything novel or special. We should also install some packages such as a configuration management tool ([Puppet](https://puppet.com/try-puppet/open-source-puppet/download/) or [Saltstack](https://saltproject.io/)) and a package manager ([Chocolatey](https://chocolatey.org/), [Googet](https://github.com/google/googet), or [Gorilla](https://github.com/1dustindavis/gorilla)).
 - **Solution**: Add some Glazier config to automatically log in after the host OS is installed and do stuff. See https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep for some ideas.
 
-#### We could write some new Glazier actions in go or re-imagine the entire tool.
-- **Problem**: Setting up Python in WinPE is a giant pain. If Glazier or Glazier configs revolved around single go binary setup would be easier. It seems like the folks at Google [have the same idea](https://github.com/google/glazier/tree/master/go). But none of the Glazier actions currently use this code (yet). 
+#### We could write some new Glazier actions in go or reimagine the entire tool
+- **Problem**: Setting up Python in WinPE is a giant pain. If it were a single go binary, setup work be easier. It seems like the folks at Google [have the same idea](https://github.com/google/glazier/tree/master/go). But none of the Glazier actions currently use this code (yet). 
 
 - **Possible Solutions**:
    - Write some Glazier actions that call the above Go code
