@@ -4,7 +4,7 @@
     <title>Getting started with Windows Imaging &amp; Glazier (Part 1) // BK</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.83.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -29,8 +29,8 @@
  However, The setup overview comes &ldquo;without the batteries included&rdquo;." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://bkurtz.io/posts/glazier/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-07-10T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2021-07-10T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2021-07-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-07-10T00:00:00+00:00" />
 
 
 
@@ -111,10 +111,10 @@
 <p>See our [Glazier&rsquo;s] <a href="https://google.github.io/glazier">docs site</a> for how you can get started with Glazier.</p>
 </blockquote>
 <p>However, <a href="https://google.github.io/glazier/setup/">The setup overview</a> comes &ldquo;without the batteries included&rdquo;. The authors expect that you already know how to create <a href="https://en.wikipedia.org/wiki/Windows_Imaging_Format">WIMs</a>, use the <a href="https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism---deployment-image-servicing-and-management-technical-reference-for-windows">dism</a> CLI tool, and some other common WinAdmin tasks. These expectations are completely fair.</p>
-<p>But:</p>
+<p>However:</p>
 <ul>
-<li>I didn&rsquo;t know how to use these tools. And</li>
-<li>I was worried that even if I set up Glazier by hand successfully once, I&rsquo;d never remember the exact steps required to do it again.</li>
+<li>I am not a WinAdmin by trade.</li>
+<li>I was worried that even if I set up Glazier by hand successfully, I&rsquo;d never remember the exact steps required to do it again.</li>
 </ul>
 <p>Thus, I worked hard to streamline and automate the setup details and share a reproducible way to create a <a href="https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-intro">WinPE</a> ISO that supports Glazier. I hope you find the results useful :)</p>
 <h1 id="set-up-glazier">Set up Glazier</h1>
@@ -125,7 +125,7 @@
 </li>
 <li>
 <p>Clone my <code>glazier-starter-kit</code> repository.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">git clone https://github.com/discentem/glazier-starter-kit.git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">git clone https://github.com/discentem/glazier-starter-kit.git
 </code></pre></div><p>This repository contains 3 main things:</p>
 <ul>
 <li><a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1">a powershell script</a> that automatically generates a WinPE ISO with Glazier and all of its dependencies 🎉</li>
@@ -144,9 +144,9 @@
 </li>
 <li>
 <p>On the laptop, export all of this device&rsquo;s drivers with <a href="https://docs.microsoft.com/en-us/powershell/module/dism/export-windowsdriver?view=windowsserver2019-ps">Export-WindowsDriver</a>. You will need to launch Powershell as an Administrator.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Export-Windowsdriver -Online -Destination c:\drivers
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Export-Windowsdriver -Online -Destination c:\drivers
 </code></pre></div><p>During the execution of this command, you&rsquo;ll see output like this. This is only a partial snippet of the output.</p>
-<pre><code>...
+<pre tabindex="0"><code>...
 Driver           : oem25.inf
 OriginalFileName : C:\Windows\System32\DriverStore\FileRepository\killernetworkextension.inf
                    _amd64_635597853a943a8a\killernetworkextension.inf
@@ -169,13 +169,13 @@ Date             : 4/16/2020 12:00:00 AM
 Version          : 2.2.3267.0
 </code></pre></li>
 <li>
-<p>Copy the entire contents of <code>C:\drivers</code> on the laptop to <code>C:\drivers</code> on your Windows 10 virtual machine.</p>
+<p>Copy the entire contents of <code>C:\drivers</code> on the laptop to <code>C:\drivers\dell\xps\9370</code> on your Windows 10 virtual machine.</p>
 <p>Recall that we technically only need drivers related to NIC, Video, or Storage for WinPE. However, because I&rsquo;m lazy, I&rsquo;ll just copy all of the drivers.</p>
-<p>After copying <code>C:\drivers</code> back to the virtual machine, the directory should look something like this, with each subfolder containing the files for an individual driver:
+<p>After copying <code>C:\drivers</code> back to the virtual machine, the directory should look something like this, with each subfolder containing the files for an individual driver: 
 (partial snippet)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">PS C:\Users\brandon&gt; ls C:\drivers\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">PS C:\Users\brandon&gt; ls C:\drivers\dell\xps\9370
 
-Directory: C:\drivers
+Directory: C:\drivers\dell\xps\9370
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
@@ -185,14 +185,14 @@ d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_a
 ...
 </code></pre></div></li>
 <li>
-<p>Repeat the above steps 1-3 above on each device model that you want to support.</p>
+<p>Repeat the above steps 1-3 above on each device model that you want to support, keeping a separate folder for each model. Reference the <a href="https://www.deploymentresearch.com/mdt-2013-lite-touch-driver-management/">total control</a> method for driver management for more information.</p>
 </li>
 </ol>
 <h3 id="setting-up-glazier-distribution-point">Setting up Glazier distribution point</h3>
 <h4 id="set-up-a-web-server">Set up a web server</h4>
 <p>Per <a href="https://github.com/google/glazier/tree/master/docs/setup#distribution-point">https://github.com/google/glazier/tree/master/docs/setup#distribution-point</a>, we need to set up a web server to host our Glazier config files. I&rsquo;m going to use <a href="https://aws.amazon.com/s3/">Amazon S3</a> but you can use any web server that supports https. A few important notes:</p>
 <ul>
-<li>By default, Glazier does not provide web authentication for downloading resources. So your web server needs to be open to the internet, behind a network ACL, or have some other form of device-based authentication.</li>
+<li>By default, Glazier does not provide web authentication for downloading resources. So your web server needs to be open to the internet, behind a network ACL, or some other form of device-based authentication.</li>
 <li><a href="https://github.com/google/fresnel">Fresnel</a>, another open-source project from Google&rsquo;s WinOps team, can provide authenticated downloads for Glazier. However, Fresnel is out-of-scope for this post.</li>
 </ul>
 <p><strong>If you aren&rsquo;t using s3</strong>: set up your own web service and skip to <a href="#get-familiar-with-glazier">Get familiar with Glazier</a>.</p>
@@ -227,14 +227,19 @@ d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_a
 </li>
 <li>
 <p>If desired, fork <code>glazier-starter-kit/glazier-repo</code> and/or customize as necessary.</p>
-<p>You don&rsquo;t necessarily need to customize anything at first. <code>glazier-starter-kit/glazier-repo</code> contains a <em>complete</em> set of config files. <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3">These basic configs</a> won&rsquo;t accomplish very much but they will enable you to create a proof-of-concept setup of Glazier.</p>
+</li>
+<li>
+<p>If desired, fork <code>glazier-starter-kit/glazier-repo</code> and/or customize as necessary.</p>
+<ul>
+<li>You don&rsquo;t necessarily need to customize anything at first. <code>glazier-starter-kit/glazier-repo</code> contains a <em>complete</em> set of config files. <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L3">These basic configs</a> won&rsquo;t accomplish very much but they will enough for a Glazier proof-of-concept.</li>
+</ul>
 </li>
 </ol>
 <h4 id="upload-glazier-configs">Upload Glazier configs</h4>
 <ol>
 <li>
 <p>Upload the contents of <code>glazier-starter-kit/glazier-repo</code>, with any additions/modifications you&rsquo;ve made, to your web server. The root of your web server should look something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">% ls -1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">% ls -1
 dev
 stable
 version-info.yaml
@@ -260,13 +265,13 @@ version-info.yaml
 <ol>
 <li>
 <p>Launch Powershell as an Administrator again and start a new session with an execution policy of bypass.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">powershell.exe -ExecutionPolicy Bypass
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">powershell.exe -ExecutionPolicy Bypass
 </code></pre></div></li>
 <li>
 <p>Run the <code>bootstrap_winpe.ps1</code> script. Note, the script may be in a different location on your machine, depending on where you cloned <code>glazier-starter-kit</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\glazier-starter-kit\tools\bootstrap_winpe.ps1<span style="color:#75715e"> --config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_GOES_HERE</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\glazier-starter-kit\tools\bootstrap_winpe.ps1<span style="color:#75715e"> --config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_GOES_HERE</span>
 </code></pre></div><p>After a few minutes you should see the output end like this.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Done.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Done.
 NoPromptIso: C:\OSDCloud\OSDCloud_NoPrompt.ISO
 =========================================================================
 2021-06-27-142237 New-OSDCloud.ISO Completed in 00 minutes 10 seconds
@@ -280,7 +285,7 @@ OSDCloud ISO created at C:\OSDCloud\OSDCloud.ISO
 <li>Creates a <a href="https://osdcloud.osdeploy.com/get-started/new-osdcloud.template">OSDCloud template</a> and a <a href="https://osdcloud.osdeploy.com/functions/osdcloud.workspace">OSDCloud workspace</a></li>
 <li>Downloads Python</li>
 <li>Installs your drivers into the wim</li>
-<li>Mounts a <code>boot.wim</code></li>
+<li>Mounts a <code>boot.wim</code> (expands the WinPE filesystem on disk)</li>
 <li>Installs Python (in the wim)</li>
 <li>Installs git (with chocolatey)</li>
 <li>Clones <a href="https://github.com/google/glazier">Glazier</a> into the mounted wim and runs git pull</li>
@@ -306,14 +311,14 @@ OSDCloud ISO created at C:\OSDCloud\OSDCloud.ISO
 </li>
 <li>
 <p>After getting connected to the internet, <code>autobuild.ps1</code> will run. This is heavily borrowed from <a href="https://github.com/TsekNet">@tseknet&rsquo;s</a> example <a href="https://github.com/google/glazier/commit/6e9b94bfeaa0a0b5c6a908c337c0a488cd6fe600#diff-4130388a9ea73c798df0683813708bfd3cdfb1e25ff8d4e4ddf2af10746c7691">autobuild.ps1</a>. Thanks again for sharing that!</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">X:\windows\system32<span style="color:#75715e">&gt;powershell -NoProfile -NoLogo -WindowStyle Maximized -NoExit</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">X:\windows\system32<span style="color:#75715e">&gt;powershell -NoProfile -NoLogo -WindowStyle Maximized -NoExit</span>
 -File <span style="color:#e6db74">&#34;X:\Windows\System32\autobuild.ps1&#34;</span> -config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_HERE
 </code></pre></div></li>
 <li>
 <p>If you are using Glazier with my <a href="https://github.com/discentem/glazier-starter-kit/tree/master/glazier-repo">original config files</a>, next you&rsquo;ll see this screen.</p>
 <img src="/images/winpe/8.png" alt="Picture of the UI notifying user that build will start in 1 minute" width="800"/>
 <p>You see this because I configured it in <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L9-L19">this build.yaml file</a>. See <a href="https://google.github.io/glazier/yaml/chooser_ui">https://google.github.io/glazier/yaml/chooser_ui</a> for more info.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">pin</span>: <span style="color:#e6db74">&#39;&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">pin</span>: <span style="color:#e6db74">&#39;&#39;</span>
   <span style="color:#f92672">choice</span>:
      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test_thing</span>
      <span style="color:#f92672">type</span>: <span style="color:#ae81ff">toggle</span>
@@ -351,10 +356,10 @@ OSDCloud ISO created at C:\OSDCloud\OSDCloud.ISO
 <li><strong>Problem</strong>: Even if we solve partitioning the drive and install vanilla Windows 10, we still haven&rsquo;t done anything novel or special. We should also install some packages such as a configuration management tool (<a href="https://puppet.com/try-puppet/open-source-puppet/download/">Puppet</a> or <a href="https://saltproject.io/">Saltstack</a>) and a package manager (<a href="https://chocolatey.org/">Chocolatey</a>, <a href="https://github.com/google/googet">Googet</a>, or <a href="https://github.com/1dustindavis/gorilla">Gorilla</a>).</li>
 <li><strong>Solution</strong>: Add some Glazier config to automatically log in after the host OS is installed and do stuff. See <a href="https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep">https://github.com/google/glazier/blob/master/docs/setup/README.md#images--sysprep</a> for some ideas.</li>
 </ul>
-<h4 id="we-could-write-some-new-glazier-actions-in-go-or-re-imagine-the-entire-tool">We could write some new Glazier actions in go or re-imagine the entire tool.</h4>
+<h4 id="we-could-write-some-new-glazier-actions-in-go-or-reimagine-the-entire-tool">We could write some new Glazier actions in go or reimagine the entire tool</h4>
 <ul>
 <li>
-<p><strong>Problem</strong>: Setting up Python in WinPE is a giant pain. If Glazier or Glazier configs revolved around single go binary setup would be easier. It seems like the folks at Google <a href="https://github.com/google/glazier/tree/master/go">have the same idea</a>. But none of the Glazier actions currently use this code (yet).</p>
+<p><strong>Problem</strong>: Setting up Python in WinPE is a giant pain. If it were a single go binary, setup work be easier. It seems like the folks at Google <a href="https://github.com/google/glazier/tree/master/go">have the same idea</a>. But none of the Glazier actions currently use this code (yet).</p>
 </li>
 <li>
 <p><strong>Possible Solutions</strong>:</p>
