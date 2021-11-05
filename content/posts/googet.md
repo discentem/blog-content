@@ -14,6 +14,8 @@ From Googet's [readme](https://github.com/google/googet/blob/master/README.md#go
 
 > This is not an official Google product.
 
+Googet tackles the same problem set as [Chocolatey](https://chocolatey.org/) and [Gorilla](https://github.com/1dustindavis/gorilla)
+
 # Installing Googet
 
 # Googet Server Index

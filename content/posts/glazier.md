@@ -273,7 +273,7 @@ We set up Glazier in a repeatable fashion and configured it to do some basic stu
    - Write some Glazier actions that call the above Go code
    - A somewhat out-there idea: Write a completely new imaging tool that uses starlark instead of yaml with https://github.com/google/starlark-go. 
 
-### Have a questions, clarification, or comment? 
+### Have a question, clarification, or comment? 
 
 File an issue or PR (pull request) against my blog at https://github.com/discentem/blog-content. If you want to make a PR against this specific post, you'll find the source for this post [here](https://github.com/discentem/blog-content/blob/master/content/posts/glazier.md).
 
