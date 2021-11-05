@@ -25,7 +25,7 @@ It is a tool from the [AsahiLinux](https://asahilinux.org/) project that lets yo
     cc -o macvdmtool main.o -framework CoreFoundation -framework IOKit -lc++
     macvdmtool % 
     ```
-1. (Optional) Copy macvdmtool is somewhere that's in the default path.
+1. (Optional) Copy macvdmtool in somewhere that's in the default path.
     ```text
     macvdmtool % sudo cp macvdmtool /usr/local/bin
     Password:
@@ -39,10 +39,10 @@ It is a tool from the [AsahiLinux](https://asahilinux.org/) project that lets yo
 
     ![Install Automation Tools password prompt](/images/macvdmtool/cfgutil/install_password.png)
 
-1. Connect the host and target Macs together via an official Apple USB-C charging cable. The must be plugged into the DFU port on both ends. 
+1. Connect the host and target Macs together via an official Apple USB-C charging cable. The cable must be plugged into the DFU port on both ends. 
 
     - On the M1 Macbook Air, the DFU port is the usb-c port closest to the screen. 
-    - On the M1 Pro, the DFU port is the usb-c port closted to the Magsafe connector.
+    - On the M1 Pro, the DFU port is the usb-c port closed to the Magsafe connector.
 
     See Mr. Macintosh's excellent [blog post on DFU restores](https://mrmacintosh.com/restore-macos-firmware-on-an-apple-silicon-mac-boot-to-dfu-mode/) for more information.
 
