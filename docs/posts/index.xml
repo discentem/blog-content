@@ -6,7 +6,18 @@
     <description>Recent content in Posts on BK</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 10 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://bkurtz.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://bkurtz.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DFU Apple Silicon Macs with macvdmtool</title>
+      <link>https://bkurtz.io/posts/macvdmtool/</link>
+      <pubDate>Thu, 04 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://bkurtz.io/posts/macvdmtool/</guid>
+      <description>What is macvdmtool? It is a tool from the AsahiLinux project that lets you put an Apple Silicon Mac in DFU mode with a simple terminal command! No more fumbling around with annoying keyboard combos!
+ Note: macvdmtool requires that you have two Apple silicon machines on hand. One acts as the &amp;ldquo;host&amp;rdquo; machine which initiates the &amp;ldquo;target&amp;rdquo; machine to perform a restore.
+ Setting up and using macvdmtool   Install Xcode and the Xcode commandline tools.</description>
+    </item>
+    
     <item>
       <title>Getting started with Windows Imaging &amp; Glazier (Part 1)</title>
       <link>https://bkurtz.io/posts/glazier/</link>
