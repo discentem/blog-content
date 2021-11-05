@@ -42,7 +42,7 @@ It is a tool from the [AsahiLinux](https://asahilinux.org/) project that lets yo
 1. Connect the host and target Macs together via an official Apple USB-C charging cable. The cable must be plugged into the DFU port on both ends. 
 
     - On the M1 Macbook Air, the DFU port is the usb-c port closest to the screen. 
-    - On the M1 Pro, the DFU port is the usb-c port closed to the Magsafe connector.
+    - On the M1 Pro, the DFU port is the usb-c port closest to the Magsafe connector.
 
     See Mr. Macintosh's excellent [blog post on DFU restores](https://mrmacintosh.com/restore-macos-firmware-on-an-apple-silicon-mac-boot-to-dfu-mode/) for more information.
 
