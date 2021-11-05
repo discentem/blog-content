@@ -25,7 +25,7 @@ It is a tool from the [AsahiLinux](https://asahilinux.org/) project that lets yo
     cc -o macvdmtool main.o -framework CoreFoundation -framework IOKit -lc++
     macvdmtool % 
     ```
-1. (Optional) Copy macvdmtool in somewhere that's in the default path.
+1. (Optional) Copy macvdmtool to somewhere that is in the default path.
     ```text
     macvdmtool % sudo cp macvdmtool /usr/local/bin
     Password:
