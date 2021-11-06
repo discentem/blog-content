@@ -4,7 +4,7 @@ baseURL = "https://bkurtz.io"
 title = "BK"
 languageCode = "en-us"
 author = "Brandon Kurtz"
-googleAnalytics = ""
+googleAnalytics = "UA-212195209-1"
 
 [markup.goldmark.renderer]
     unsafe = true
