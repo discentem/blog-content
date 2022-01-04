@@ -1,40 +1,48 @@
 ---
-title: "Device Code Auth for Azure Blob Downloads"
+title: "Device Code Auth for secure downloads in WinPE from Azure Blob Storage"
 date: 2021-12-31T10:48:42-08:00
 draft: true
 ---
 
 ### What is Device Code Authentication? 
 
-According to [Microsoft's docs](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-device-code), Device Code Authentication
+Per [IETF (Internet Engineering Task Force) rfc8628](https://datatracker.ietf.org/doc/html/rfc8628), Device Code Authentication (aka `Device Authorization Grant`)
 
-> allows users to sign in to input-constrained devices such as a smart TV, IoT device, or printer. 
+> is designed for Internet-connected devices that either lack a browser to perform a user-agent-
+based authorization or are input constrained to the extent that requiring the user to input text in order to authenticate during the authorization flow is impractical. It enables OAuth clients on such
+devices (like smart TVs, media consoles, digital picture frames, and printers) to obtain user authorization to access protected resources by using a user agent on a separate device. 
 
 #### Why is this interesting?
 
-I don't manage or write software for IoT devices or Smart TVs. But Device Code is still interesting to me because I've previously written about [Glazier and WinPE](https://bkurtz.io/posts/glazier/) lamented about how [Glazier lacks authentication out-of-the-box](https://bkurtz.io/posts/glazier#webservers-that-are-open-to-the-internet-are-bad).  And WinPE is arguably an _input-contrained device_ because you can't launch a full web browser, which is _usually_ required for modern SSO. 
-
-Enter Device Code Authentication. This could allow an imaging tool, running in WinPE, to perform authenticated downloads from Azure Blob Storage. 
+I don't manage or write software for IoT devices or Smart TVs. But one input-constrained environment that I have found myself experimenting with is WinPE. In my previous adventure with [Glazier and WinPE](https://bkurtz.io/posts/glazier/) I lamented about how [Glazier lacks authentication out-of-the-box](https://bkurtz.io/posts/glazier#webservers-that-are-open-to-the-internet-are-bad). Device Code can solve this problem without needing additional infrastructure by enabling authenticated downloads from various cloud storage providers.
 
 #### Credit
 
-Using Device Code Auth in WinPE was not my idea. It was [@SeguraOSD](https://twitter.com/SeguraOSD) who [pointed out its existence to me on Twitter](https://twitter.com/SeguraOSD/status/1474541279736381440?s=20). Thank you! I believe David is going to implement this in his stellar [OSDCloud](https://osdcloud.osdeploy.com/) project.
+Huge shout out to [@SeguraOSD](https://twitter.com/SeguraOSD) [for sharing his idea to utilize Device Code auth](https://twitter.com/SeguraOSD/status/1474541279736381440?s=20). I will implement this in Go...which might be useful if I ever get around to writing [an alternative to Glazier in go](https://bkurtz.io/posts/glazier#we-could-write-some-new-glazier-actions-in-go-or-reimagine-the-entire-tool). 
 
-I will implement this in Go, which might be useful if I ever write [an alternative to Glazier in go](https://bkurtz.io/posts/glazier#we-could-write-some-new-glazier-actions-in-go-or-reimagine-the-entire-tool).
+#### Why Azure instead of GCS (Google Cloud Storage) and AWS S3 (Simple Storage Service)?
+
+- Google does support Device Authorization Grant but [_only for limited API scopes_](https://developers.google.com/identity/protocols/oauth2/limited-input-device#allowedscopes). Authenicating to GCS is not supported using this flow. Thus GCS is not an option for this project. 
+
+- AWS [does appear to support Device Authorization Grant](https://aws.amazon.com/blogs/security/implement-oauth-2-0-device-grant-flow-by-using-amazon-cognito-and-aws-lambda/) and _does not appear_ to limit the available scopes. So S3 seems feasible but I just found Amazon's docs on the implementation process to be very confusing. 
+
+In contrast, [Microsoft Azure's docs on device code](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-device-code) seemed more straightforward. Thus I chose Azure Blob storage. 
+
+tl:dr You could probably build this with S3 but I just found Microsoft's docs easier to digest.
 
 ### Implementation in Golang
 
-#### "From scratch"
+I've written Go for many recent projects at work and my team helps mantain a few open-source tools in Go, such as [MDMDirector](https://github.com/mdmdirector/mdmdirector) and [macadmins/osquery-extension](https://github.com/macadmins/osquery-extension), thus Go seemed like an obvious choice.
 
-Initially I implemented the [Azure Device Code authentication flow "from scratch"](https://github.com/discentem/azure_blob_from_scratch) in Go because I was not yet aware of the [Azure Go SDK](https://github.com/Azure/azure-sdk-for-go) 🥲.
+#### Device Code "from scratch"
 
-This "from scratch" implementation took many hours to complete. It was both fun and frustrating. If you interested in reading the code for this implementation, you can find the code here: https://github.com/discentem/azure_blob_from_scratch. 
+Initially I implemented the [Azure Device Code authentication flow "from scratch"](https://github.com/discentem/azure_blob_from_scratch) because I was not yet aware of the [Azure Go SDK](https://github.com/Azure/azure-sdk-for-go) 🥲. Azure SDK for Go provides everything I implemented and much more; it is also much more elegant.
 
-However, I would highly recommend just using the Azure SDK for Go as I do below. I just can't bare to discard this code, so here it is for academic purposes. 
+My ["from scratch"](https://github.com/discentem/azure_blob_from_scratch) implementation took many hours to complete. It was a fun adventure but ultimately not needed. 
 
 #### Azure Go SDK
 
-You can find the sdk at https://github.com/Azure/azure-sdk-for-go. There's 
+You can find the official Azure Go SDK at https://github.com/Azure/azure-sdk-for-go. The README has a ton of info which I, frankly, found overwelming. After some digging around I found documentation on whic
 
 
 
