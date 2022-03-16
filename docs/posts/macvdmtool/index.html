@@ -147,24 +147,6 @@ macvdmtool %
 <p>See Mr. Macintosh&rsquo;s excellent <a href="https://mrmacintosh.com/restore-macos-firmware-on-an-apple-silicon-mac-boot-to-dfu-mode/">blog post on DFU restores</a> for more information.</p>
 </li>
 <li>
-<p>Use macvdmtool to put the target mac in serial mode. In my experience, you do not have to wait for the boot process to finish to perform the next step: you can perform it immediately after <code>sudo macvdmtool reboot serial</code> finishes.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">~ % sudo macvdmtool reboot serial
-Password:
-Mac type: J313AP
-Looking for HPM devices...
-Found: IOService:/AppleARMPE/arm-io@10F00000/AppleT810xIO/i2c0@35010000/AppleS5L8940XI2CController/hpmBusManager@6B/AppleHPMBusController/hpm0/AppleHPMARM
-Connection: Sink
-Status: APP
-Unlocking... OK
-Entering DBMa mode... Status: DBMa
-Rebooting target into normal mode... OK
-Waiting for connection.... Connected
-Putting target into serial mode... OK
-Putting local end into serial mode... OK
-Exiting DBMa mode... OK
-~ %
-</code></pre></div></li>
-<li>
 <p>Put the target mac in DFU mode.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">~ % sudo macvdmtool dfu
 Mac type: J313AP
