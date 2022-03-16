@@ -20,7 +20,7 @@ I don't manage or write software for IoT devices or Smart TVs. But one input-con
 
 Huge shout out to [@SeguraOSD](https://twitter.com/SeguraOSD) [for sharing his idea to utilize Device Code auth](https://twitter.com/SeguraOSD/status/1474541279736381440?s=20). I will implement this in Go...which might be useful if I ever get around to writing [an alternative to Glazier in go](https://bkurtz.io/posts/glazier#we-could-write-some-new-glazier-actions-in-go-or-reimagine-the-entire-tool). 
 
-#### Why Azure instead of GCS (Google Cloud Storage) and AWS S3 (Simple Storage Service)?
+#### Cloud Storage: GCS, S3, or Azure Blob?
 
 - Google does support Device Authorization Grant but [_only for limited API scopes_](https://developers.google.com/identity/protocols/oauth2/limited-input-device#allowedscopes). Authenicating to GCS is not supported using this flow. Thus GCS is not an option for this project. 
 
@@ -40,9 +40,13 @@ Initially I implemented the [Azure Device Code authentication flow "from scratch
 
 My ["from scratch"](https://github.com/discentem/azure_blob_from_scratch) implementation took many hours to complete. It was a fun adventure but ultimately not needed. 
 
-#### Azure Go SDK
+#### Device with Azure SDK for Go
 
-You can find the official Azure Go SDK at https://github.com/Azure/azure-sdk-for-go. The README has a ton of info which I, frankly, found overwelming. After some digging around I found documentation on whic
+You can find the official Azure SDK for Go at https://github.com/Azure/azure-sdk-for-go. After much digging around I found the first bread crumb I needed: https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/azidentity#credential-types. Thankfully the devs behind Azure SDK for Go implemented the credential I am after: [DeviceCodeCredential](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity#DeviceCodeCredential).
+
+
+
+
 
 
 
