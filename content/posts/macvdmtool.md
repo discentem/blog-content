@@ -1,5 +1,5 @@
 ---
-title: "DFU Apple Silicon Macs with macvdmtool"
+title: "DFU restore Apple Silicon Macs with macvdmtool"
 date: 2021-11-04
 draft: false
 ---
@@ -43,8 +43,6 @@ It is a tool from the [AsahiLinux](https://asahilinux.org/) project that lets yo
 
     - On the M1 Macbook Air, the DFU port is the usb-c port closest to the screen. 
     - On the M1 Pro, the DFU port is the usb-c port closest to the Magsafe connector.
-
-    See Mr. Macintosh's excellent [blog post on DFU restores](https://mrmacintosh.com/restore-macos-firmware-on-an-apple-silicon-mac-boot-to-dfu-mode/) for more information.
 
 1. Put the target mac in DFU mode.
 
@@ -92,6 +90,10 @@ That's it! Enjoy.
 # Have a question, clarification, or comment? 
 
 File an issue or PR (pull request) against my blog at https://github.com/discentem/blog-content or reach out via MacAdmins Slack.
+
+# Further Readings on DFU
+
+See Mr. Macintosh's excellent [blog post on DFU restores](https://mrmacintosh.com/restore-macos-firmware-on-an-apple-silicon-mac-boot-to-dfu-mode/) for more information.
 
 
 
