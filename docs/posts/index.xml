@@ -8,14 +8,15 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 04 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://bkurtz.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>DFU Apple Silicon Macs with macvdmtool</title>
+      <title>DFU restore Apple Silicon Macs with macvdmtool</title>
       <link>https://bkurtz.io/posts/macvdmtool/</link>
       <pubDate>Thu, 04 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://bkurtz.io/posts/macvdmtool/</guid>
       <description>What is macvdmtool? It is a tool from the AsahiLinux project that lets you put an Apple Silicon Mac in DFU mode with a simple set of terminal commands.
- Note: macvdmtool requires that you have two Apple silicon machines on hand. One acts as the &amp;ldquo;host&amp;rdquo; machine which initiates the &amp;ldquo;target&amp;rdquo; machine to perform a restore.
- Setting up and using macvdmtool   Install Xcode and the Xcode commandline tools.</description>
+Note: macvdmtool requires that you have two Apple silicon machines on hand. One acts as the &amp;ldquo;host&amp;rdquo; machine which initiates the &amp;ldquo;target&amp;rdquo; machine to perform a restore.
+Setting up and using macvdmtool Install Xcode and the Xcode commandline tools.
+Install Apple Configurator 2 from the Mac App Store.</description>
     </item>
     
     <item>
@@ -25,11 +26,11 @@
       
       <guid>https://bkurtz.io/posts/glazier/</guid>
       <description>What is Glazier? From https://github.com/google/glazier#glazier and https://github.com/google/glazier#why-glazier:
- Glazier is a tool developed at Google for automating Windows operating system deployments.
-  Glazier was created with the following 3 core principles in mind: Text-Based &amp;amp; Code-Driven, Scalability, and Extensibility.
- Sounds awesome. How do I get started? The Glazier readme suggests:
- See our [Glazier&amp;rsquo;s] docs site for how you can get started with Glazier.
- However, The setup overview comes &amp;ldquo;without the batteries included&amp;rdquo;.</description>
+Glazier is a tool developed at Google for automating Windows operating system deployments.
+Glazier was created with the following 3 core principles in mind: Text-Based &amp;amp; Code-Driven, Scalability, and Extensibility.
+Sounds awesome. How do I get started? The Glazier readme suggests:
+See our [Glazier&amp;rsquo;s] docs site for how you can get started with Glazier.
+However, The setup overview comes &amp;ldquo;without the batteries included&amp;rdquo;. The authors expect that you already know how to create WIMs, use the dism CLI tool, and some other common WinAdmin tasks.</description>
     </item>
     
   </channel>

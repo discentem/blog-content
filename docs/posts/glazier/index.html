@@ -4,7 +4,7 @@
     <title>Getting started with Windows Imaging &amp; Glazier (Part 1) // BK</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.107.0">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
@@ -26,19 +26,19 @@ if (!doNotTrack) {
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Getting started with Windows Imaging &amp; Glazier (Part 1)"/>
 <meta name="twitter:description" content="What is Glazier? From https://github.com/google/glazier#glazier and https://github.com/google/glazier#why-glazier:
- Glazier is a tool developed at Google for automating Windows operating system deployments.
-  Glazier was created with the following 3 core principles in mind: Text-Based &amp; Code-Driven, Scalability, and Extensibility.
- Sounds awesome. How do I get started? The Glazier readme suggests:
- See our [Glazier&rsquo;s] docs site for how you can get started with Glazier.
- However, The setup overview comes &ldquo;without the batteries included&rdquo;."/>
+Glazier is a tool developed at Google for automating Windows operating system deployments.
+Glazier was created with the following 3 core principles in mind: Text-Based &amp; Code-Driven, Scalability, and Extensibility.
+Sounds awesome. How do I get started? The Glazier readme suggests:
+See our [Glazier&rsquo;s] docs site for how you can get started with Glazier.
+However, The setup overview comes &ldquo;without the batteries included&rdquo;. The authors expect that you already know how to create WIMs, use the dism CLI tool, and some other common WinAdmin tasks."/>
 
     <meta property="og:title" content="Getting started with Windows Imaging &amp; Glazier (Part 1)" />
 <meta property="og:description" content="What is Glazier? From https://github.com/google/glazier#glazier and https://github.com/google/glazier#why-glazier:
- Glazier is a tool developed at Google for automating Windows operating system deployments.
-  Glazier was created with the following 3 core principles in mind: Text-Based &amp; Code-Driven, Scalability, and Extensibility.
- Sounds awesome. How do I get started? The Glazier readme suggests:
- See our [Glazier&rsquo;s] docs site for how you can get started with Glazier.
- However, The setup overview comes &ldquo;without the batteries included&rdquo;." />
+Glazier is a tool developed at Google for automating Windows operating system deployments.
+Glazier was created with the following 3 core principles in mind: Text-Based &amp; Code-Driven, Scalability, and Extensibility.
+Sounds awesome. How do I get started? The Glazier readme suggests:
+See our [Glazier&rsquo;s] docs site for how you can get started with Glazier.
+However, The setup overview comes &ldquo;without the batteries included&rdquo;. The authors expect that you already know how to create WIMs, use the dism CLI tool, and some other common WinAdmin tasks." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://bkurtz.io/posts/glazier/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-07-10T00:00:00+00:00" />
@@ -137,8 +137,8 @@ if (!doNotTrack) {
 </li>
 <li>
 <p>Clone my <code>glazier-starter-kit</code> repository.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">git clone https://github.com/discentem/glazier-starter-kit.git
-</code></pre></div><p>This repository contains 3 main things:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>git clone https://github.com/discentem/glazier-starter-kit.git
+</span></span></code></pre></div><p>This repository contains 3 main things:</p>
 <ul>
 <li><a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1">a powershell script</a> that automatically generates a WinPE ISO with Glazier and all of its dependencies 🎉</li>
 <li><a href="https://github.com/discentem/glazier-starter-kit/tree/master/glazier-repo">a complete example set</a> of Glazier config files</li>
@@ -156,8 +156,8 @@ if (!doNotTrack) {
 </li>
 <li>
 <p>On the laptop, export all of this device&rsquo;s drivers with <a href="https://docs.microsoft.com/en-us/powershell/module/dism/export-windowsdriver?view=windowsserver2019-ps">Export-WindowsDriver</a>. You will need to launch Powershell as an Administrator.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Export-Windowsdriver -Online -Destination c:\drivers
-</code></pre></div><p>During the execution of this command, you&rsquo;ll see output like this. This is only a partial snippet of the output.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Export-Windowsdriver -Online -Destination c:\drivers
+</span></span></code></pre></div><p>During the execution of this command, you&rsquo;ll see output like this. This is only a partial snippet of the output.</p>
 <pre tabindex="0"><code>...
 Driver           : oem25.inf
 OriginalFileName : C:\Windows\System32\DriverStore\FileRepository\killernetworkextension.inf
@@ -185,17 +185,17 @@ Version          : 2.2.3267.0
 <p>Recall that we technically only need drivers related to NIC, Video, or Storage for WinPE. However, because I&rsquo;m lazy, I&rsquo;ll just copy all of the drivers.</p>
 <p>After copying <code>C:\drivers</code> back to the virtual machine, the directory should look something like this, with each subfolder containing the files for an individual driver:
 (partial snippet)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">PS C:\Users\brandon&gt; ls C:\drivers\dell\xps\9370
-
-Directory: C:\drivers\dell\xps\9370
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
-d-----         6/19/2021   5:01 PM                atheros_bth.inf_amd64_059e038b6e018050
-d-----         6/19/2021   5:01 PM                cui_dch.inf_amd64_b8e01d9e8716d2a7
-d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_amd64_dcc202b5af4a34b5
-...
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>PS C:\Users\brandon&gt; ls C:\drivers\dell\xps\9370
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Directory: C:\drivers\dell\xps\9370
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                 LastWriteTime         Length Name
+</span></span><span style="display:flex;"><span>----                 -------------         ------ ----
+</span></span><span style="display:flex;"><span>d-----         6/19/2021   5:01 PM                atheros_bth.inf_amd64_059e038b6e018050
+</span></span><span style="display:flex;"><span>d-----         6/19/2021   5:01 PM                cui_dch.inf_amd64_b8e01d9e8716d2a7
+</span></span><span style="display:flex;"><span>d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_amd64_dcc202b5af4a34b5
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div></li>
 <li>
 <p>Repeat the above steps 1-3 above on each device model that you want to support, keeping a separate folder for each model. Reference the <a href="https://www.deploymentresearch.com/mdt-2013-lite-touch-driver-management/">total control</a> method for driver management for more information.</p>
 </li>
@@ -248,11 +248,11 @@ d-----         6/19/2021   5:01 PM                detectionverificationdrv.inf_a
 <ol>
 <li>
 <p>Upload the contents of <code>glazier-starter-kit/glazier-repo</code>, with any additions/modifications you&rsquo;ve made, to your web server. The root of your web server should look something like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">% ls -1
-dev
-stable
-version-info.yaml
-</code></pre></div><details>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>% ls -1
+</span></span><span style="display:flex;"><span>dev
+</span></span><span style="display:flex;"><span>stable
+</span></span><span style="display:flex;"><span>version-info.yaml
+</span></span></code></pre></div><details>
    <summary>[<--- Expand here] If you are using Amazon S3 as a distribution point, you can use a <a href=https://golang.org/>Go</a> binary I wrote to upload Glazier configs to your Glazier distribution point.</summary>
    <body>
    <p>&emsp;Use my <a href=https://github.com/discentem/glazier-starter-kit/blob/master/tools/main.go>main.go</a> script:</p>
@@ -274,19 +274,19 @@ version-info.yaml
 <ol>
 <li>
 <p>Launch Powershell as an Administrator again and start a new session with an execution policy of bypass.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">powershell.exe -ExecutionPolicy Bypass
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>powershell.exe -ExecutionPolicy Bypass
+</span></span></code></pre></div></li>
 <li>
 <p>Run the <code>bootstrap_winpe.ps1</code> script. Note, the script may be in a different location on your machine, depending on where you cloned <code>glazier-starter-kit</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\glazier-starter-kit\tools\bootstrap_winpe.ps1<span style="color:#75715e"> --config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_GOES_HERE</span>
-</code></pre></div><p>After a few minutes you should see the output end like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Done.
-NoPromptIso: C:\OSDCloud\OSDCloud_NoPrompt.ISO
-=========================================================================
-2021-06-27-142237 New-OSDCloud.ISO Completed in 00 minutes 10 seconds
-OSDCloud ISO created at C:\OSDCloud\OSDCloud.ISO
-=========================================================================
-</code></pre></div><p>For a full breakdown of what this script does, check out the code comments at <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1">https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1</a>. In summary <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1">bootstrap_winpe.ps1</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\glazier-starter-kit\tools\bootstrap_winpe.ps1<span style="color:#75715e"> --config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_GOES_HERE</span>
+</span></span></code></pre></div><p>After a few minutes you should see the output end like this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Done.
+</span></span><span style="display:flex;"><span>NoPromptIso: C:\OSDCloud\OSDCloud_NoPrompt.ISO
+</span></span><span style="display:flex;"><span>=========================================================================
+</span></span><span style="display:flex;"><span>2021-06-27-142237 New-OSDCloud.ISO Completed in 00 minutes 10 seconds
+</span></span><span style="display:flex;"><span>OSDCloud ISO created at C:\OSDCloud\OSDCloud.ISO
+</span></span><span style="display:flex;"><span>=========================================================================
+</span></span></code></pre></div><p>For a full breakdown of what this script does, check out the code comments at <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1">https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1</a>. In summary <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1">bootstrap_winpe.ps1</a>:</p>
 <ul>
 <li>Installs the Chocolatey package manager</li>
 <li>Installs Windows ADK and the WinPE components with Chocolatey</li>
@@ -320,25 +320,25 @@ OSDCloud ISO created at C:\OSDCloud\OSDCloud.ISO
 </li>
 <li>
 <p>After getting connected to the internet, <code>autobuild.ps1</code> will run. This is heavily borrowed from <a href="https://github.com/TsekNet">@tseknet&rsquo;s</a> example <a href="https://github.com/google/glazier/commit/6e9b94bfeaa0a0b5c6a908c337c0a488cd6fe600#diff-4130388a9ea73c798df0683813708bfd3cdfb1e25ff8d4e4ddf2af10746c7691">autobuild.ps1</a>. Thanks again for sharing that!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">X:\windows\system32<span style="color:#75715e">&gt;powershell -NoProfile -NoLogo -WindowStyle Maximized -NoExit</span>
--File <span style="color:#e6db74">&#34;X:\Windows\System32\autobuild.ps1&#34;</span> -config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_HERE
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>X:\windows\system32<span style="color:#75715e">&gt;powershell -NoProfile -NoLogo -WindowStyle Maximized -NoExit</span>
+</span></span><span style="display:flex;"><span>-File <span style="color:#e6db74">&#34;X:\Windows\System32\autobuild.ps1&#34;</span> -config_server https://YOUR_WEBSERVER_OR_BUCKETNAME_URL_HERE
+</span></span></code></pre></div></li>
 <li>
 <p>If you are using Glazier with my <a href="https://github.com/discentem/glazier-starter-kit/tree/master/glazier-repo">original config files</a>, next you&rsquo;ll see this screen.</p>
 <img src="/images/winpe/8.png" alt="Picture of the UI notifying user that build will start in 1 minute" width="800"/>
 <p>You see this because I configured it in <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-repo/stable/config/build.yaml#L9-L19">this build.yaml file</a>. See <a href="https://google.github.io/glazier/yaml/chooser_ui">https://google.github.io/glazier/yaml/chooser_ui</a> for more info.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">pin</span>: <span style="color:#e6db74">&#39;&#39;</span>
-  <span style="color:#f92672">choice</span>:
-     <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test_thing</span>
-     <span style="color:#f92672">type</span>: <span style="color:#ae81ff">toggle</span>
-     <span style="color:#f92672">prompt</span>: <span style="color:#e6db74">&#34;test toggle&#34;</span>
-     <span style="color:#f92672">options</span>: [
-        {<span style="color:#f92672">label: &#39;False&#39;, value: False, tip</span>: <span style="color:#e6db74">&#39;&#39;</span>},
-        {<span style="color:#f92672">label: &#39;True&#39;, value: True, tip</span>: <span style="color:#e6db74">&#39;&#39;</span>},
-     ]
-- <span style="color:#f92672">pin</span>: <span style="color:#e6db74">&#39;&#39;</span>
-  <span style="color:#f92672">ShowChooser</span>: []
-</code></pre></div><p>The logo is copied from <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-resources/logo.gif">https://github.com/discentem/glazier-starter-kit/blob/master/glazier-resources/logo.gif</a> to the <a href="https://en.wikipedia.org/wiki/Windows_Imaging_Format">WIM</a>: <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1#L132">https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1#L132</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">pin</span>: <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">choice</span>:
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test_thing</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">type</span>: <span style="color:#ae81ff">toggle</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">prompt</span>: <span style="color:#e6db74">&#34;test toggle&#34;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">options</span>: [
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">label: &#39;False&#39;, value: False, tip</span>: <span style="color:#e6db74">&#39;&#39;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">label: &#39;True&#39;, value: True, tip</span>: <span style="color:#e6db74">&#39;&#39;</span>},
+</span></span><span style="display:flex;"><span>     ]
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">pin</span>: <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ShowChooser</span>: []
+</span></span></code></pre></div><p>The logo is copied from <a href="https://github.com/discentem/glazier-starter-kit/blob/master/glazier-resources/logo.gif">https://github.com/discentem/glazier-starter-kit/blob/master/glazier-resources/logo.gif</a> to the <a href="https://en.wikipedia.org/wiki/Windows_Imaging_Format">WIM</a>: <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1#L132">https://github.com/discentem/glazier-starter-kit/blob/master/tools/bootstrap_winpe.ps1#L132</a>.</p>
 <p>Glazier expects the logo to be in the <a href="https://github.com/discentem/glazier-starter-kit/blob/master/tools/autobuild.ps1#L18">resources directory</a>: <a href="https://github.com/google/glazier/blob/master/glazier/chooser/chooser.py#L98">https://github.com/google/glazier/blob/master/glazier/chooser/chooser.py#L98</a>.</p>
 </li>
 <li>
