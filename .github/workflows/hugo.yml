@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
 
-      - run: git config --global --add safe.directory ${{ github.workspace }}/docs
+      - run: git config --global --add safe.directory /github/workspace/docs
       - name: Deploy the site
         uses: benmatselby/hugo-deploy-gh-pages@main
         env:
