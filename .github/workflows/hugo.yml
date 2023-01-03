@@ -14,9 +14,11 @@ jobs:
 
       - name: Deploy the site
         uses: benmatselby/hugo-deploy-gh-pages@main
+        with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
         env:
           HUGO_VERSION: 0.88.0
           TARGET_REPO: discentem/discentem.github.io
           TARGET_BRANCH: main
-          TOKEN: ${{ secrets.TOKEN }}
+          TOKEN: ${{ secrets.token }}
           CNAME: www.bkurtz.io
