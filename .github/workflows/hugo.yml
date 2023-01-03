@@ -20,4 +20,4 @@ jobs:
           TARGET_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CNAME: www.bkurtz.io
-          HUGO_PUBLISH_DIR: $${{ github.workspace }}/docs
+          HUGO_PUBLISH_DIR: ${{ github.workspace }}/docs
