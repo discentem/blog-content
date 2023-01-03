@@ -20,5 +20,5 @@ jobs:
           HUGO_VERSION: 0.88.0
           TARGET_REPO: discentem/discentem.github.io
           TARGET_BRANCH: main
-          TOKEN: ${{ secrets.token }}
+          GITHUB_TOKEN: ${{ secrets.token }}
           CNAME: www.bkurtz.io
