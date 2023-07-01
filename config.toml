@@ -1,6 +1,6 @@
 theme = "m10c"
 publishDir = "docs"
-baseURL = "https://bkurtz.io"
+baseURL = "/"
 title = "BK"
 languageCode = "en-us"
 author = "Brandon Kurtz"
