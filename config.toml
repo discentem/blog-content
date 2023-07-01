@@ -10,7 +10,7 @@ googleAnalytics = "UA-212195209-1"
     unsafe = true
 
 [params]
-    description = "I do MacOps and WinOps @ Airbnb. I like to use golang, config management, and open-source management tools. Views are my own."
+    description = "I am Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own."
     avatar = "static/avatar.jpg"
 [[menu.main]]
     url = "/"
