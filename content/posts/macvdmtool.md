@@ -6,7 +6,7 @@ draft: false
 
 # What is [macvdmtool](https://github.com/AsahiLinux/macvdmtool)?
 
-It is a tool written by [marcan](https://github.com/marcan) under the  [AsahiLinux](https://asahilinux.org/) that lets you put an Apple Silicon Mac in DFU mode with terminal commands instead of requiring awkward keyboard gymnastics.
+It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinux project](https://asahilinux.org/). macvdmtool lets you put an Apple Silicon Mac in DFU mode with terminal commands instead of requiring awkward keyboard gymnastics.
 
 > **Note**: macvdmtool requires that you have _two_ Apple silicon machines on hand. One acts as the "host" machine which initiates the "target" machine to perform a restore. 
 
