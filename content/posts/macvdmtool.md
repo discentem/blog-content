@@ -59,7 +59,7 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
     Exiting DBMa mode... OK
     ~ %
     ```
-1. Confirm the device is in DFU mode by launching Apple Configurator 2. It should look like this.
+1. (Optional, instead of using Apple Configurator 2 or in [latest Sonoma update, Finder](https://www.macrumors.com/2023/08/15/macos-sonoma-dfu-mode/)) Confirm the device is in DFU mode by launching Apple Configurator 2. It should look like this.
    (If it does not appear, try unplugging and plugging back in the cable between the host and target)
 
     ![Apple Configurator 2 is now showing target device in DFU](/images/macvdmtool/apple_configurator/dfu.png)
