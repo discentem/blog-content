@@ -3,16 +3,17 @@ title: "DFU restore Apple Silicon Macs with macvdmtool"
 date: 2021-11-04
 draft: false
 ---
+(updated 2024-01-31, new info about Intel macs)
 
 # What is [macvdmtool](https://github.com/AsahiLinux/macvdmtool)?
 
 It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinux project](https://asahilinux.org/). macvdmtool lets you put any Apple Silicon or Intel Macs with the T2 chip (2018 and forward) in DFU mode with terminal commands instead of requiring awkward keyboard gymnastics.
 
-> **Note**: macvdmtool requires that the host machine is Apple Silicon based, Intel macs do not seem to support this tool as a host.
+> **Note**: macvdmtool requires that the **host machine** is **Apple Silicon** based, Intel macs do not seem to support this tool as a host.
 
 # Setting up and using macvdmtool
 
-1. Install Xcode and the Xcode commandline tools.
+1. Install [Xcode](https://developer.apple.com/xcode/) and the [Xcode commandline tools](https://mac.install.guide/commandlinetools/).
 1. Install [Apple Configurator 2](https://apps.apple.com/us/app/apple-configurator-2/id1037126344?mt=12) from the Mac App Store.
 1. Clone [macvdmtool](https://github.com/AsahiLinux/macvdmtool.git)
 
@@ -42,8 +43,8 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
 
 1. Connect the host and target Macs together via an official Apple USB-C charging cable or a TB3/TB4 cable. The cable must be plugged into the DFU port on both ends and support data transfer.
 
-    - On Apple Silicon machines, the DFU port is closest to the screen
-    - On Intel machines, the DFU port is closest to the trackpad
+    - On Apple Silicon machines, the DFU port is closest to the screen on the left side
+    - On Intel machines, the DFU port is closest to the trackpad on the left side
 
 1. Put the target Mac in DFU mode.
 
@@ -62,7 +63,22 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
     Rebooting target into DFU mode... OK
     Exiting DBMa mode... OK
     ```
-1. Optional (instead of using Apple Configurator 2 or in [latest Sonoma update, Finder](https://www.macrumors.com/2023/08/15/macos-sonoma-dfu-mode/) to restore/revive): Confirm the device is in DFU mode by launching Apple Configurator 2. It should look like this.
+
+1. Confirm the device is in DFU mode by launching Apple Configurator 2. It should look like this.
+   (If it does not appear, try unplugging and plugging back in the cable between the host and target)
+
+    ![Apple Configurator 2 is now showing target device in DFU](/images/macvdmtool/apple_configurator/dfu.png)
+
+### For easier use of the DFU command you can add it as an alias
+1. Find the configuration file for your terminal, usually [.zshrc or .bash_profile](https://presscargo.io/articles/how-to-add-an-alias-in-macos-with-terminal/) located in your users folder)
+2. Edit it with a file editor of your choice and add `alias dfu="sudo macvdmtool dfu"` to a new line at the bottom of the file, save and quit
+3. Run `source ~/.zshrc` or `source ~/.bash_profile` to activate the edited file
+4. Now you can run `dfu` in terminal instead of `sudo macvdmtool dfu`
+5. Apply this to the other commands available through `macvdmtool` if you'd like, being aware of `reboot` already being a native macOS command.
+
+## Optional when restoring/reviving
+Instead of using Apple Configurator 2 or in [latest Sonoma update, Finder](https://www.macrumors.com/2023/08/15/macos-sonoma-dfu-mode/) to restore/revive your Mac, you can do it manually (only works if the target is an Apple Silicon model)
+1. Confirm the device is in DFU mode by launching Apple Configurator 2. It should look like this.
    (If it does not appear, try unplugging and plugging back in the cable between the host and target)
 
     ![Apple Configurator 2 is now showing target device in DFU](/images/macvdmtool/apple_configurator/dfu.png)
@@ -73,7 +89,7 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
     ```shell
     cfgutil restore -I ~/Downloads/UniversalMac_12.1_21C5021h_Restore.ipsw
     ```
-    Should result in:
+    Should result in something like this:
     ```text
     objc[53015]: Class AMSupportURLConnectionDelegate is implemented in both /usr/lib/libauthinstall.dylib (0x1da64c9e8) and /Library/Apple/System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/MobileDevice (0x104d782c8). One of the two will be used. Which one is undefined.
     objc[53015]: Class AMSupportURLSession is implemented in both /usr/lib/libauthinstall.dylib (0x1da64ca38) and /Library/Apple/System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/MobileDevice (0x104d78318). One of the two will be used. Which one is undefined.
@@ -87,7 +103,7 @@ At this point you should see an Apple logo and a loading bar on the target Mac.
 
 After a few minutes, the Mac will reboot and launch the standard Setup Assistant experience.
 
-That's it! Enjoy. 
+That's it! Enjoy.
 
 # Future [automation](https://xkcd.com/1319/) enhancements
 
@@ -101,6 +117,8 @@ File an issue or PR (pull request) against my blog at https://github.com/discent
 # Further Readings on DFU
 
 See Mr. Macintosh's excellent [blog post on DFU restores](https://mrmacintosh.com/restore-macos-firmware-on-an-apple-silicon-mac-boot-to-dfu-mode/) for more information.
+
+
 
 
 
