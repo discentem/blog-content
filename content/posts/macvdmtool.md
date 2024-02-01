@@ -69,15 +69,8 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
 
     ![Apple Configurator 2 is now showing target device in DFU](/images/macvdmtool/apple_configurator/dfu.png)
 
-### For easier use of the DFU command you can add it as an alias
-1. Find the configuration file for your terminal, usually [.zshrc or .bash_profile](https://presscargo.io/articles/how-to-add-an-alias-in-macos-with-terminal/) located in your users folder)
-2. Edit it with a file editor of your choice and add `alias dfu="sudo macvdmtool dfu"` to a new line at the bottom of the file, save and quit
-3. Run `source ~/.zshrc` or `source ~/.bash_profile` to activate the edited file
-4. Now you can run `dfu` in terminal instead of `sudo macvdmtool dfu`
-5. Apply this to the other commands available through `macvdmtool` if you'd like, being aware of `reboot` already being a native macOS command.
-
-## Optional when restoring/reviving
-Instead of using Apple Configurator 2 or in [latest Sonoma update, Finder](https://www.macrumors.com/2023/08/15/macos-sonoma-dfu-mode/) to restore/revive your Mac, you can do it manually (only works if the target is an Apple Silicon model)
+## Restoring/reviving
+As well as using Apple Configurator 2 or in [latest Sonoma update, Finder](https://www.macrumors.com/2023/08/15/macos-sonoma-dfu-mode/) to restore/revive your Mac, you can also do it manually with macvdmtool (only works if the target is an Apple Silicon model)
 1. Confirm the device is in DFU mode by launching Apple Configurator 2. It should look like this.
    (If it does not appear, try unplugging and plugging back in the cable between the host and target)
 
