@@ -113,9 +113,3 @@ File an issue or PR (pull request) against my blog at https://github.com/discent
 # Further Readings on DFU
 
 See Mr. Macintosh's excellent [blog post on DFU restores](https://mrmacintosh.com/restore-macos-firmware-on-an-apple-silicon-mac-boot-to-dfu-mode/) for more information.
-
-
-
-
-
-
