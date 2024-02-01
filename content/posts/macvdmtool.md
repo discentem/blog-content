@@ -3,7 +3,6 @@ title: "DFU restore Apple Silicon Macs with macvdmtool"
 date: 2021-11-04
 draft: false
 ---
-(updated 2024-01-31, new info about Intel macs)
 
 # What is [macvdmtool](https://github.com/AsahiLinux/macvdmtool)?
 
