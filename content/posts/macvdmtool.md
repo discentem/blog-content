@@ -63,7 +63,7 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
     Exiting DBMa mode... OK
     ```
 
-## Restoring/reviving
+## Restoring/reviving with cfgutil
 As well as using Apple Configurator 2 or in [latest Sonoma update, Finder](https://www.macrumors.com/2023/08/15/macos-sonoma-dfu-mode/) to restore/revive your Mac, you can also do it manually with cfgutil (only works if the target is an Apple Silicon model)
 1. Confirm the device is in DFU mode by launching Apple Configurator 2. It should look like this.
    (If it does not appear, try unplugging and plugging back in the cable between the host and target)
