@@ -12,7 +12,14 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
 
 # Setting up and using macvdmtool
 
-1. Install [Xcode](https://developer.apple.com/xcode/) and the [Xcode commandline tools](https://mac.install.guide/commandlinetools/).
+1. Install [Xcode](https://developer.apple.com/xcode/) and then run this in terminal to install Xcode command-line tools:
+   ```shell
+   xcode-select –-install
+   ```
+   Check that it installed properly:
+   ```shell
+   xcode-select -p
+   ```
 1. Install [Apple Configurator 2](https://apps.apple.com/us/app/apple-configurator-2/id1037126344?mt=12) from the Mac App Store.
 1. Clone [macvdmtool](https://github.com/AsahiLinux/macvdmtool.git)
 
