@@ -28,7 +28,7 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
     ```
 1. Change into the macvdmtool directory and compile the tool
     ```shell
-    macvdmtool && make
+    cd macvdmtool && make
     cc -o macvdmtool main.o -framework CoreFoundation -framework IOKit -lc++
     ```
 1. Copy macvdmtool to path.
