@@ -1,18 +1,24 @@
 ---
-title: "DFU restore Apple Silicon Macs with macvdmtool"
+title: "Perform DFU Restores on Apple Silicon Macs with macvdmtool"
 date: 2021-11-04
 draft: false
 ---
 
 # What is [macvdmtool](https://github.com/AsahiLinux/macvdmtool)?
 
-It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinux project](https://asahilinux.org/). macvdmtool lets you put any Apple Silicon or Intel Macs with the T2 chip (2018 and forward) in DFU mode with terminal commands instead of requiring awkward keyboard gymnastics.
+It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinux project](https://asahilinux.org/). macvdmtool lets you put any Apple Silicon or Intel Macs with the T2 chip (2018 and forward) in DFU mode with an easy terminal command instead of requiring awkward keyboard gymnastics.
 
 > **Note**: macvdmtool requires that the **host machine** is **Apple Silicon** based, Intel macs do not seem to support this tool as a host.
 
+# Prerequisites
+
+- You need 2 Macs to utilize `macvdmtool`. 
+    - One Mac will act as the "host Mac". This machine needs to be fully functional.
+    - The second "target Mac" does not need to be functional as long as it powers on and boots to either a question mark or recovery mode.
+
 # Setting up and using macvdmtool
 
-1. Install [Xcode](https://developer.apple.com/xcode/) and then run this in terminal to install Xcode command-line tools:
+1. On the host Mac, Install [Xcode](https://developer.apple.com/xcode/) and then run this in terminal to install Xcode command-line tools:
    ```shell
    xcode-select –-install
    ```
@@ -29,7 +35,6 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
 1. Change into the macvdmtool directory and compile the tool
     ```shell
     cd macvdmtool && make
-    cc -o macvdmtool main.o -framework CoreFoundation -framework IOKit -lc++
     ```
 1. Copy macvdmtool to path.
     ```shell
@@ -47,10 +52,11 @@ It is a tool written by [marcan](https://github.com/marcan) under the [AsahiLinu
 
     ![Install Automation Tools password prompt](/images/macvdmtool/cfgutil/install_password.png)
 
-1. Connect the host and target Macs together via an official Apple USB-C charging cable or a TB3/TB4 cable. The cable must be plugged into the DFU port on both ends and support data transfer.
+1. Connect the host Mac and target Mac together via an official Apple USB-C charging cable or a TB3/TB4 cable. The cable must be plugged into the _DFU port_ on both ends and support data transfer.
 
-    - On Apple Silicon machines, the DFU port is closest to the screen on the left side
-    - On Intel machines, the DFU port is closest to the trackpad on the left side
+> On Apple Silicon machines, the DFU port is closest to the screen on the left side.
+
+> On Intel machines, the DFU port is closest to the trackpad on the left side.
 
 1. Put the target Mac in DFU mode.
 
