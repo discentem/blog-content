@@ -20,15 +20,13 @@ I don't manage or write software for IoT devices or Smart TVs. But one input-con
 
 Huge shout out to [@SeguraOSD](https://twitter.com/SeguraOSD) [for sharing his idea to utilize Device Code auth](https://twitter.com/SeguraOSD/status/1474541279736381440?s=20). I will implement this in Go...which might be useful if I ever get around to writing [an alternative to Glazier in go](https://bkurtz.io/posts/glazier#we-could-write-some-new-glazier-actions-in-go-or-reimagine-the-entire-tool). 
 
-#### Cloud Storage: GCS, S3, or Azure Blob?
+#### Which Device Code implmentation and cloud storage should we use? GCS, S3, or Azure Blob?
 
 - Google does support Device Authorization Grant but [_only for limited API scopes_](https://developers.google.com/identity/protocols/oauth2/limited-input-device#allowedscopes). Authenicating to GCS is not supported using this flow. Thus GCS is not an option for this project. 
 
-- AWS [does appear to support Device Authorization Grant](https://aws.amazon.com/blogs/security/implement-oauth-2-0-device-grant-flow-by-using-amazon-cognito-and-aws-lambda/) and _does not appear_ to limit the available scopes. So S3 seems feasible but I just found Amazon's docs on the implementation process to be very confusing. 
+- AWS [does appear to support Device Authorization Grant](https://aws.amazon.com/blogs/security/implement-oauth-2-0-device-grant-flow-by-using-amazon-cognito-and-aws-lambda/) and _does not appear_ to limit the available scopes. So S3 seems feasible but I find Amazon's docs on the implementation process to be very confusing. 
 
-In contrast, [Microsoft Azure's docs on device code](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-device-code) seemed more straightforward. Thus I chose Azure Blob storage. 
-
-tl:dr You could probably build this with S3 but I just found Microsoft's docs easier to digest.
+In contrast, [Microsoft Azure's docs on device code](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-device-code) seemed more straightforward. Thus I choose Azure Blob storage. 
 
 ### Implementation in Golang
 
