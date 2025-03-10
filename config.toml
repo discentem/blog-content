@@ -24,8 +24,5 @@ googleAnalytics = "UA-212195209-1"
     url = "https://macadmins.slack.com/messages/D1PJBJWLT"
     icon = "slack"
 [[params.social]]
-    url = "https://twitter.com/muffins222221"
-    icon = "twitter"
-[[params.social]]
     icon = "linkedin"
     url = "https://www.linkedin.com/in/brandon-kurtz/"
