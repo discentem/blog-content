@@ -1,4 +1,4 @@
-theme = "m10c"
+theme = "hugo-blog-awesome"
 publishDir = "docs"
 baseURL = "/"
 title = "BK"
