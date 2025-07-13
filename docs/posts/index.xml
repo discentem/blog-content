@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on BK</title>
+    <link>//localhost:1313/posts/</link>
+    <description>Recent content in Posts on BK</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 26 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Perform DFU Restores on Apple Silicon Macs with macvdmtool</title>
+      <link>//localhost:1313/posts/macvdmtool/</link>
+      <pubDate>Thu, 04 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/macvdmtool/</guid>
+      
+      <description>&lt;h1 id=&#34;what-is-macvdmtool&#34;&gt;What is &lt;a href=&#34;https://github.com/AsahiLinux/macvdmtool&#34;&gt;macvdmtool&lt;/a&gt;?&lt;/h1&gt;
+&lt;p&gt;It is a tool written by &lt;a href=&#34;https://github.com/marcan&#34;&gt;marcan&lt;/a&gt; under the &lt;a href=&#34;https://asahilinux.org/&#34;&gt;AsahiLinux project&lt;/a&gt;. macvdmtool lets you put any Apple Silicon or Intel Macs with the T2 chip (2018 and forward) in DFU mode with an easy terminal command instead of requiring awkward keyboard gymnastics.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: macvdmtool requires that the &lt;strong&gt;host machine&lt;/strong&gt; is &lt;strong&gt;Apple Silicon&lt;/strong&gt; based, Intel macs do not seem to support this tool as a host.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h1 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;You need 2 Macs to utilize &lt;code&gt;macvdmtool&lt;/code&gt;.
+&lt;ul&gt;
+&lt;li&gt;One Mac will act as the &amp;ldquo;host Mac&amp;rdquo;. This machine needs to be fully functional.&lt;/li&gt;
+&lt;li&gt;The second &amp;ldquo;target Mac&amp;rdquo; does not need to be functional as long as it powers on and boots to either a question mark or recovery mode.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;setting-up-and-using-macvdmtool&#34;&gt;Setting up and using macvdmtool&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;On the host Mac, Install &lt;a href=&#34;https://developer.apple.com/xcode/&#34;&gt;Xcode&lt;/a&gt; and then run this in terminal to install Xcode command-line tools:&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Getting started with Windows Imaging &amp; Glazier (Part 1)</title>
+      <link>//localhost:1313/posts/glazier/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/glazier/</guid>
+      
+      <description>&lt;h1 id=&#34;what-is-glazier&#34;&gt;What is Glazier?&lt;/h1&gt;
+&lt;p&gt;From &lt;a href=&#34;https://github.com/google/glazier#glazier&#34;&gt;https://github.com/google/glazier#glazier&lt;/a&gt; and &lt;a href=&#34;https://github.com/google/glazier#why-glazier&#34;&gt;https://github.com/google/glazier#why-glazier&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Glazier is a tool developed at Google for automating Windows operating system deployments.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Glazier was created with the following 3 core principles in mind: Text-Based &amp;amp; Code-Driven, Scalability, and Extensibility.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;sounds-awesome-how-do-i-get-started&#34;&gt;Sounds awesome. How do I get started?&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/google/glazier/blob/master/README.md&#34;&gt;The Glazier readme&lt;/a&gt; suggests:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;See our [Glazier&amp;rsquo;s] &lt;a href=&#34;https://google.github.io/glazier&#34;&gt;docs site&lt;/a&gt; for how you can get started with Glazier.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;However, &lt;a href=&#34;https://google.github.io/glazier/setup/&#34;&gt;The setup overview&lt;/a&gt; comes &amp;ldquo;without the batteries included&amp;rdquo;. The authors expect that you already know how to create &lt;a href=&#34;https://en.wikipedia.org/wiki/Windows_Imaging_Format&#34;&gt;WIMs&lt;/a&gt;, use the &lt;a href=&#34;https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism---deployment-image-servicing-and-management-technical-reference-for-windows&#34;&gt;dism&lt;/a&gt; CLI tool, and some other common WinAdmin tasks. These expectations are completely fair.&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
