@@ -1,7 +1,7 @@
 theme = "hugo-blog-awesome"
 publishDir = "docs"
 baseURL = "/"
-title = "BK"
+title = "BK's Blog"
 languageCode = "en-us"
 author = "Brandon Kurtz"
 googleAnalytics = "UA-212195209-1"

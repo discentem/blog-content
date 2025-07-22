@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">How to create a macOS virtual machine with Tart | BK&#39;s Blog</title>
+<meta property="og:title" content="How to create a macOS virtual machine with Tart | BK&#39;s Blog" />
+<meta name="twitter:title" content="How to create a macOS virtual machine with Tart | BK&#39;s Blog" />
+<meta itemprop="name" content="How to create a macOS virtual machine with Tart | BK&#39;s Blog" />
+<meta name="application-name" content="How to create a macOS virtual machine with Tart | BK&#39;s Blog" />
+<meta property="og:site_name" content="" />
+
+<meta name="description" content="I am a Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own.">
+<meta itemprop="description" content="I am a Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own." />
+<meta property="og:description" content="I am a Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own." />
+<meta name="twitter:description" content="I am a Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own." />
+
+<meta property="og:locale" content="en-us" />
+<meta name="language" content="en-us" />
+
+  <link rel="alternate" hreflang="en" href="//localhost:1313/posts/tart/tart/" title="" />
+
+
+
+
+
+    
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content=2025-07-19T00:00:00Z />
+    <meta property="article:published_time" content=2025-07-19T00:00:00Z />
+    <meta property="og:url" content="//localhost:1313/posts/tart/tart/" />
+
+    
+
+    
+
+    <script defer type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "headline": "How to create a macOS virtual machine with Tart",
+        "author": {
+        "@type": "Person",
+        "name": ""
+        },
+        "datePublished": "2025-07-19",
+        "description": "",
+        "wordCount":  488 ,
+        "mainEntityOfPage": "True",
+        "dateModified": "2025-07-19",
+        "image": {
+        "@type": "imageObject",
+        "url": ""
+        },
+        "publisher": {
+        "@type": "Organization",
+        "name": "BK\u0027s Blog"
+        }
+    }
+    </script>
+
+
+<meta name="generator" content="Hugo 0.148.1">
+
+    
+    <meta property="og:url" content="//localhost:1313/posts/tart/tart/">
+  <meta property="og:site_name" content="BK&#39;s Blog">
+  <meta property="og:title" content="How to create a macOS virtual machine with Tart">
+  <meta property="og:description" content="This post documents how to set up a macOS virtual machine with Tart.
+Installing Tart Option 1: Install Tart via Homebrew If you don&#39;t already have Homebrew installed Navigate to http://brew.sh/.
+Copy and execute the install command shown on the Homebrew website in Terminal:
+/bin/bash -c &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&#34; ⚠️ Caution: Be careful about executing shell scripts directly from the internet.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-07-19T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-07-19T00:00:00+00:00">
+
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to create a macOS virtual machine with Tart">
+  <meta name="twitter:description" content="This post documents how to set up a macOS virtual machine with Tart.
+Installing Tart Option 1: Install Tart via Homebrew If you don&#39;t already have Homebrew installed Navigate to http://brew.sh/.
+Copy and execute the install command shown on the Homebrew website in Terminal:
+/bin/bash -c &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&#34; ⚠️ Caution: Be careful about executing shell scripts directly from the internet.">
+
+
+    
+
+    <link rel="canonical" href="//localhost:1313/posts/tart/tart/">
+    <link href="/style.min.e390ba7da26222f4dc42a349955d76dbbe44e5ce2535a43de5a70633a0a9ec3c.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+<link rel="manifest" href="//localhost:1313/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+
+    
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+    
+    
+</head>
+<body data-theme = "" class="notransition">
+
+<script src="/js/theme.js"></script>
+
+<div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+        <a href="//localhost:1313/" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
+viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round" class="feather feather-home">
+<title></title>
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+        </a>
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+        <label for="menu-trigger">
+            <span class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
+            </span>
+        </label>
+
+        <div class="trigger">
+            <ul class="trigger-container">
+                
+                
+                <li>
+                    <a class="menu-link " href="/">
+                        Blog
+                    </a>
+                    
+                </li>
+                
+                <li class="menu-separator">
+                    <span>|</span>
+                </li>
+                
+                
+            </ul>
+            <a id="mode" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">How to create a macOS virtual machine with Tart</h1>
+                
+                
+                
+                <div class="post-meta">
+                    <time datetime="2025-07-19T00:00:00&#43;00:00" itemprop="datePublished"> Jul 19, 2025 </time>
+                </div>
+                
+            </header>
+            
+            <div class="page-content">
+                <p>This post documents how to set up a macOS virtual machine with Tart.</p>
+<h1 id="installing-tart">Installing Tart</h1>
+<details>
+  <summary style="padding-left: 1.5em"><span style="font-size: 1.2em; font-weight: bold;">Option 1: Install Tart via Homebrew</span></summary>
+<details>
+  <summary style="padding-left: 1.5em"><span style="font-size: 0.9em; font-weight: bold">If you don't already have Homebrew installed</span></summary>
+<ol>
+<li>
+<p>Navigate to <a href="http://brew.sh/">http://brew.sh/</a>.</p>
+</li>
+<li>
+<p>Copy and execute the install command shown on the Homebrew website in Terminal:</p>
+ <div style="
+ background-color: #1a1b20;
+ color: #e6e6e6;
+ font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+ font-size: 0.9em;
+ padding: 0.75em 1em;
+ border-radius: 6px;
+ white-space: pre-wrap;
+ word-break: break-word;
+ line-height: 1.5;
+ ">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</div>
+<blockquote>
+<p>⚠️ <strong>Caution</strong>: Be careful about executing shell scripts directly from the internet.</p></blockquote>
+</li>
+</ol>
+  </details>
+<p>Once brew is installed, install Tart</p>
+<pre tabindex="0"><code>brew install cirruslabs/cli/tart
+</code></pre></details>
+<details>
+<summary style="padding-left: 1.5em"><span style="font-size: 1.2em; font-weight: bold;">Option 2: Install Tart directly from Github</span></summary>
+<ol>
+<li>
+<p>Download Tart. As of mid-July 2025, 2.28.2 is the latest release:</p>
+ <br />
+ <div style="
+ background-color: #1a1b20;
+ color: #e6e6e6;
+ font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+ font-size: 0.9em;
+ padding: 0.75em 1em;
+ border-radius: 6px;
+ white-space: pre-wrap;
+ word-break: break-word;
+ line-height: 1.5;
+ ">curl https://github.com/cirruslabs/tart/releases/download/2.28.2/tart.tar.gz -Lo tart.tar.gz</div>
+<blockquote>
+<p><code>-L</code> will allow <code>curl</code> to follow redirects and <code>o</code> specifies what you want to name the downloaded file and where you want to save it.</p></blockquote>
+ <br />
+</li>
+<li>
+<p>Extract Tart to <code>/Applications</code>:</p>
+ <br />
+ <div style="
+ background-color: #1a1b20;
+ color: #e6e6e6;
+ font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+ font-size: 0.9em;
+ padding: 0.75em 1em;
+ border-radius: 6px;
+ white-space: pre-wrap;
+ word-break: break-word;
+ line-height: 1.5;
+ ">tar -xzf tart.tar.gz -C /Applications</div>
+ <br />
+</li>
+<li>
+<p>Create an alis for Tart, so that you can simply type <code>tart</code> in terminal to access it.</p>
+ <div style="
+     background-color: #1a1b20;
+     color: #e6e6e6;
+     font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+     font-size: 0.9em;
+     padding: 0.75em 1em;
+     border-radius: 6px;
+     white-space: pre-wrap;
+     word-break: break-word;
+     line-height: 1.5;
+     ">alias tart=/Applications/tart.app/Contents/MacOS/tart</div>
+<blockquote>
+<p>⚠️ If you try to create a symlink instead of an alias, this make cause <code>tart create</code> to fail in unexpected ways due to not being able to launch <code>/Applications/tart.app</code>. When in doubt, stick to an alias.</p></blockquote>
+ <br />
+</li>
+<li>
+<p>Make sure Tart is installed properly. If you type <code>tart</code> in terminal and see the following output then you are good to go!</p>
+ <div style="
+     background-color: #1a1b20;
+     color: #e6e6e6;
+     font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+     font-size: 0.9em;
+     padding: 0.75em 1em;
+     border-radius: 6px;
+     white-space: pre-wrap;
+     word-break: break-word;
+     line-height: 1.5;
+     "><div style="
+     background-color: #1a1b20;
+     color: #e6e6e6;
+     font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+     font-size: 0.9em;
+     padding: 0.75em 1em;
+     border-radius: 6px;
+     white-space: pre-wrap;
+     word-break: break-word;
+     line-height: 1.5;
+         ">% tart
+USAGE: tart <subcommand>
+<p>OPTIONS:
+&ndash;version               Show the version.
+-h, &ndash;help              Show help information.</p>
+<p>SUBCOMMANDS:
+create                  Create a VM
+clone                   Clone a VM
+run                     Run a VM
+set                     Modify VM&rsquo;s configuration
+get                     Get a VM&rsquo;s configuration
+list                    List created VMs
+login                   Login to a registry
+logout                  Logout from a registry
+ip                      Get VM&rsquo;s IP address
+exec                    Execute a command in a running VM
+pull                    Pull a VM from a registry
+push                    Push a VM to a registry
+import                  Import VM from a compressed .tvm file
+export                  Export VM to a compressed .tvm file
+prune                   Prune OCI and IPSW caches or local VMs
+rename                  Rename a local VM
+stop                    Stop a VM
+delete                  Delete a VM
+suspend                 Suspend a VM</p>
+<p>See &rsquo;tart help <subcommand>&rsquo; for detailed help.</div></p>
+</li>
+</ol>
+</details>
+<h2 id="obtaining-a-macos-image">Obtaining a macOS image</h2>
+<details>
+  <summary style="padding-left: 1.5em"><span style="font-size: 1.2em; font-weight: bold;">Option 1: Clone images provided by Tart</span></summary>
+<blockquote>
+<p>⚠️ Tart provided images may have some tools pre-installed. This could negatively affect your testing workflows depending on what you are testing.</p></blockquote>
+<ol>
+<li>
+<p>Pick the image you want to clone from <a href="https://github.com/cirruslabs/macos-image-templates">https://github.com/cirruslabs/macos-image-templates</a>.</p>
+</li>
+<li>
+<p>If you chose <code>macos-tahoe-base</code> and wanted to name it <code>my-tahoe-base-vm</code>, your clone command would be this:</p>
+<p><code>tart clone ghcr.io/cirruslabs/macos-tahoe-base:latest my-tahoe-base-vm</code></p>
+</li>
+</ol>
+</details>
+<details>
+  <summary style="padding-left: 1.5em"><span style="font-size: 1.2em; font-weight: bold;">Option 2: Download a macOS firmware directly from Apple</span></summary>
+<ol>
+<li>
+<p>Visit <a href="https://mrmacintosh.com/apple-silicon-m1-full-macos-restore-ipsw-firmware-files-database/">Mr. Macintosh&rsquo;s excellent IPSW database</a> or utilize <a href="https://github.com/ninxsoft/Mist">Ninxsoft&rsquo;s Mist</a> to download your desired IPSW.</p>
+</li>
+<li>
+<p>After the download finishes, create your tart image from the IPSW. In this example, I am pointing to an ipsw I downloaded to my desktop:</p>
+ <div style="
+ background-color: #1a1b20;
+ color: #e6e6e6;
+ font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+ font-size: 0.9em;
+ padding: 0.75em 1em;
+ border-radius: 6px;
+ white-space: pre-wrap;
+ word-break: break-word;
+ line-height: 1.5;
+ ">tart create my-15_5-image --from-ipsw /Users/bk/Desktop/UniversalMac_15.5_24F74_Restore.ipsw</div>
+<p>This command will trigger Tart to install the OS in the virtual machine. You should see the installation progress as so:</p>
+ <div style="
+ background-color: #1a1b20;
+ color: #e6e6e6;
+ font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+ font-size: 0.9em;
+ padding: 0.75em 1em;
+ border-radius: 6px;
+ white-space: pre-wrap;
+ word-break: break-word;
+ line-height: 1.5;
+ ">Installing OS...
+ 0%
+ 76%</div>
+<p>Once it completes, you should see your virtual machine sitting at the macOS language selection screen.</p>
+ <img title="a title" alt="Alt text" src="/content/images/macos_language.png">
+</li>
+</ol>
+</details>
+
+            </div>
+        </article></main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
+
+    <div class="footer_social-icons">
+</div>
+    <small class="footer_copyright">
+        © 2025 .
+        
+    </small>
+</footer>
+
+
+
+
+
+
+
+    
+    <script async src="//localhost:1313/js/main.js" ></script>
+
+    
+
+</body>
+</html>
