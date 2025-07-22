@@ -1,12 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>BK</title>
+    <title>BK&#39;s Blog</title>
     <link>//localhost:1313/</link>
-    <description>Recent content on BK</description>
+    <description>Recent content on BK&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 26 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to create a macOS virtual machine with Tart</title>
+      <link>//localhost:1313/posts/tart/</link>
+      <pubDate>Sat, 19 Jul 2025 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/tart/</guid>
+      
+      <description>&lt;p&gt;This post documents how to set up a macOS virtual machine with Tart.&lt;/p&gt;
+&lt;h1 id=&#34;installing-tart&#34;&gt;Installing Tart&lt;/h1&gt;
+&lt;details&gt;
+  &lt;summary style=&#34;padding-left: 1.5em&#34;&gt;&lt;span style=&#34;font-size: 1.2em; font-weight: bold;&#34;&gt;Option 1: Install Tart via Homebrew&lt;/span&gt;&lt;/summary&gt;
+&lt;details&gt;
+  &lt;summary style=&#34;padding-left: 1.5em&#34;&gt;&lt;span style=&#34;font-size: 0.9em; font-weight: bold&#34;&gt;If you don&#39;t already have Homebrew installed&lt;/span&gt;&lt;/summary&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Navigate to &lt;a href=&#34;http://brew.sh/&#34;&gt;http://brew.sh/&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Copy and execute the install command shown on the Homebrew website in Terminal:&lt;/p&gt;
+ &lt;div style=&#34;
+ background-color: #1a1b20;
+ color: #e6e6e6;
+ font-family: SFMono-Regular, Consolas, &#39;Liberation Mono&#39;, Menlo, monospace;
+ font-size: 0.9em;
+ padding: 0.75em 1em;
+ border-radius: 6px;
+ white-space: pre-wrap;
+ word-break: break-word;
+ line-height: 1.5;
+ &#34;&gt;/bin/bash -c &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&#34;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;⚠️ &lt;strong&gt;Caution&lt;/strong&gt;: Be careful about executing shell scripts directly from the internet.&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>Perform DFU Restores on Apple Silicon Macs with macvdmtool</title>
       <link>//localhost:1313/posts/macvdmtool/</link>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">Device Code Auth for secure downloads in WinPE from Azure Blob Storage | BK</title>
+<meta property="og:title" content="Device Code Auth for secure downloads in WinPE from Azure Blob Storage | BK" />
+<meta name="twitter:title" content="Device Code Auth for secure downloads in WinPE from Azure Blob Storage | BK" />
+<meta itemprop="name" content="Device Code Auth for secure downloads in WinPE from Azure Blob Storage | BK" />
+<meta name="application-name" content="Device Code Auth for secure downloads in WinPE from Azure Blob Storage | BK" />
+<meta property="og:site_name" content="" />
+
+<meta name="description" content="I am a Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own.">
+<meta itemprop="description" content="I am a Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own." />
+<meta property="og:description" content="I am a Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own." />
+<meta name="twitter:description" content="I am a Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own." />
+
+<meta property="og:locale" content="en-us" />
+<meta name="language" content="en-us" />
+
+  <link rel="alternate" hreflang="en" href="//localhost:1313/posts/devicecode_auth/" title="" />
+
+
+
+
+
+    
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content=2021-12-31T10:48:42-0800 />
+    <meta property="article:published_time" content=2021-12-31T10:48:42-0800 />
+    <meta property="og:url" content="//localhost:1313/posts/devicecode_auth/" />
+
+    
+
+    
+
+    <script defer type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "headline": "Device Code Auth for secure downloads in WinPE from Azure Blob Storage",
+        "author": {
+        "@type": "Person",
+        "name": ""
+        },
+        "datePublished": "2021-12-31",
+        "description": "",
+        "wordCount":  432 ,
+        "mainEntityOfPage": "True",
+        "dateModified": "2021-12-31",
+        "image": {
+        "@type": "imageObject",
+        "url": ""
+        },
+        "publisher": {
+        "@type": "Organization",
+        "name": "BK"
+        }
+    }
+    </script>
+
+
+<meta name="generator" content="Hugo 0.148.1">
+
+    
+    <meta property="og:url" content="//localhost:1313/posts/devicecode_auth/">
+  <meta property="og:site_name" content="BK">
+  <meta property="og:title" content="Device Code Auth for secure downloads in WinPE from Azure Blob Storage">
+  <meta property="og:description" content="What is Device Code Authentication? Per IETF (Internet Engineering Task Force) rfc8628, Device Code Authentication (aka Device Authorization Grant)
+is designed for Internet-connected devices that either lack a browser to perform a user-agent- based authorization or are input constrained to the extent that requiring the user to input text in order to authenticate during the authorization flow is impractical. It enables OAuth clients on such devices (like smart TVs, media consoles, digital picture frames, and printers) to obtain user authorization to access protected resources by using a user agent on a separate device.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-12-31T10:48:42-08:00">
+    <meta property="article:modified_time" content="2021-12-31T10:48:42-08:00">
+
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Device Code Auth for secure downloads in WinPE from Azure Blob Storage">
+  <meta name="twitter:description" content="What is Device Code Authentication? Per IETF (Internet Engineering Task Force) rfc8628, Device Code Authentication (aka Device Authorization Grant)
+is designed for Internet-connected devices that either lack a browser to perform a user-agent- based authorization or are input constrained to the extent that requiring the user to input text in order to authenticate during the authorization flow is impractical. It enables OAuth clients on such devices (like smart TVs, media consoles, digital picture frames, and printers) to obtain user authorization to access protected resources by using a user agent on a separate device.">
+
+
+    
+
+    <link rel="canonical" href="//localhost:1313/posts/devicecode_auth/">
+    <link href="/style.min.e390ba7da26222f4dc42a349955d76dbbe44e5ce2535a43de5a70633a0a9ec3c.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+<link rel="manifest" href="//localhost:1313/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+
+    
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+    
+    
+</head>
+<body data-theme = "" class="notransition">
+
+<script src="/js/theme.js"></script>
+
+<div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+        <a href="//localhost:1313/" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
+viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round" class="feather feather-home">
+<title></title>
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+        </a>
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+        <label for="menu-trigger">
+            <span class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
+            </span>
+        </label>
+
+        <div class="trigger">
+            <ul class="trigger-container">
+                
+                
+                <li>
+                    <a class="menu-link " href="/">
+                        Blog
+                    </a>
+                    
+                </li>
+                
+                <li class="menu-separator">
+                    <span>|</span>
+                </li>
+                
+                
+            </ul>
+            <a id="mode" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">Device Code Auth for secure downloads in WinPE from Azure Blob Storage</h1>
+                
+                
+                
+                <div class="post-meta">
+                    <time datetime="2021-12-31T10:48:42-08:00" itemprop="datePublished"> Dec 31, 2021 </time>
+                </div>
+                
+            </header>
+            
+            <div class="page-content">
+                <h3 id="what-is-device-code-authentication">What is Device Code Authentication?</h3>
+<p>Per <a href="https://datatracker.ietf.org/doc/html/rfc8628">IETF (Internet Engineering Task Force) rfc8628</a>, Device Code Authentication (aka <code>Device Authorization Grant</code>)</p>
+<blockquote>
+<p>is designed for Internet-connected devices that either lack a browser to perform a user-agent-
+based authorization or are input constrained to the extent that requiring the user to input text in order to authenticate during the authorization flow is impractical. It enables OAuth clients on such
+devices (like smart TVs, media consoles, digital picture frames, and printers) to obtain user authorization to access protected resources by using a user agent on a separate device.</p></blockquote>
+<h4 id="why-is-this-interesting">Why is this interesting?</h4>
+<p>I don&rsquo;t manage or write software for IoT devices or Smart TVs. But one input-constrained environment that I have found myself experimenting with is WinPE. In my previous adventure with <a href="https://bkurtz.io/posts/glazier/">Glazier and WinPE</a> I lamented about how <a href="https://bkurtz.io/posts/glazier#webservers-that-are-open-to-the-internet-are-bad">Glazier lacks authentication out-of-the-box</a>. Device Code can solve this problem without needing additional infrastructure by enabling authenticated downloads from various cloud storage providers.</p>
+<h4 id="credit">Credit</h4>
+<p>Huge shout out to <a href="https://twitter.com/SeguraOSD">@SeguraOSD</a> <a href="https://twitter.com/SeguraOSD/status/1474541279736381440?s=20">for sharing his idea to utilize Device Code auth</a>. I will implement this in Go&hellip;which might be useful if I ever get around to writing <a href="https://bkurtz.io/posts/glazier#we-could-write-some-new-glazier-actions-in-go-or-reimagine-the-entire-tool">an alternative to Glazier in go</a>.</p>
+<h4 id="which-device-code-implmentation-and-cloud-storage-should-we-use-gcs-s3-or-azure-blob">Which Device Code implmentation and cloud storage should we use? GCS, S3, or Azure Blob?</h4>
+<ul>
+<li>
+<p>Google does support Device Authorization Grant but <a href="https://developers.google.com/identity/protocols/oauth2/limited-input-device#allowedscopes"><em>only for limited API scopes</em></a>. Authenicating to GCS is not supported using this flow. Thus GCS is not an option for this project.</p>
+</li>
+<li>
+<p>AWS <a href="https://aws.amazon.com/blogs/security/implement-oauth-2-0-device-grant-flow-by-using-amazon-cognito-and-aws-lambda/">does appear to support Device Authorization Grant</a> and <em>does not appear</em> to limit the available scopes. So S3 seems feasible but I find Amazon&rsquo;s docs on the implementation process to be very confusing.</p>
+</li>
+</ul>
+<p>In contrast, <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-device-code">Microsoft Azure&rsquo;s docs on device code</a> seemed more straightforward. Thus I choose Azure Blob storage.</p>
+<h3 id="implementation-in-golang">Implementation in Golang</h3>
+<p>I&rsquo;ve written Go for many recent projects at work and my team helps mantain a few open-source tools in Go, such as <a href="https://github.com/mdmdirector/mdmdirector">MDMDirector</a> and <a href="https://github.com/macadmins/osquery-extension">macadmins/osquery-extension</a>, thus Go seemed like an obvious choice.</p>
+<h4 id="device-code-from-scratch">Device Code &ldquo;from scratch&rdquo;</h4>
+<p>Initially I implemented the <a href="https://github.com/discentem/azure_blob_from_scratch">Azure Device Code authentication flow &ldquo;from scratch&rdquo;</a> because I was not yet aware of the <a href="https://github.com/Azure/azure-sdk-for-go">Azure Go SDK</a> 🥲. Azure SDK for Go provides everything I implemented and much more; it is also much more elegant.</p>
+<p>My <a href="https://github.com/discentem/azure_blob_from_scratch">&ldquo;from scratch&rdquo;</a> implementation took many hours to complete. It was a fun adventure but ultimately not needed.</p>
+<h4 id="device-with-azure-sdk-for-go">Device with Azure SDK for Go</h4>
+<p>You can find the official Azure SDK for Go at <a href="https://github.com/Azure/azure-sdk-for-go">https://github.com/Azure/azure-sdk-for-go</a>. After much digging around I found the first bread crumb I needed: <a href="https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/azidentity#credential-types">https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/azidentity#credential-types</a>. Thankfully the devs behind Azure SDK for Go implemented the credential I am after: <a href="https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity#DeviceCodeCredential">DeviceCodeCredential</a>.</p>
+
+            </div>
+        </article></main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
+
+    <div class="footer_social-icons">
+</div>
+    <small class="footer_copyright">
+        © 2025 .
+        
+    </small>
+</footer>
+
+
+
+
+
+
+
+    
+    <script async src="//localhost:1313/js/main.js" ></script>
+
+    
+
+</body>
+</html>
