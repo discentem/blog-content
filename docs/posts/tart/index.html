@@ -48,7 +48,7 @@
         },
         "datePublished": "2025-07-19",
         "description": "",
-        "wordCount":  642 ,
+        "wordCount":  785 ,
         "mainEntityOfPage": "True",
         "dateModified": "2025-07-19",
         "image": {
@@ -390,7 +390,38 @@ suspend                 Suspend a VM</p>
 <p>Note: Some Tart images will already have the agent installed.</p></blockquote>
 </li>
 </ol>
-<h5 id="transferring-files-from-your-host">Transferring files from your host</h5>
+<h5 id="transferring-files-between-host-and-vm">Transferring files between host and VM</h5>
+<p>There&rsquo;s multiple ways to share files between your host and guest.</p>
+<h6><details><summary><span style="font-weight: bold;">Mount a file share</span></summary></h>
+When you launch your VM with `tart run` you can pass a flag to create a shared folder which is accessible under `/Volumes`.
+<pre tabindex="0"><code>tart run my-15_5-vm --dir=~
+</code></pre><p><img src="images/mounted_folder.png" alt=""></p>
+<pre tabindex="0"><code>% tart exec blah ls /Volumes
+  Macintosh HD
+  My Shared Files
+</code></pre><blockquote>
+<p><strong>Remember</strong>: <code>tart exec</code> requires <code>tart-guest-agent</code> to be installed and running inside your VM.</p></blockquote>
+</details>
+<h6>
+<details>
+<summary><span style="font-weight: bold;">Run a local webserver on your host machine</span></summary>
+</h>
+<ol>
+<li>
+<p>For example, if you have python3 installed, this command will serve your home directory as a local webserver.</p>
+<pre tabindex="0"><code>python3 -m http.server -d ~ # defaults to port 8000
+</code></pre></li>
+<li>
+<p>Next, find the IP address of your host machine via Terminal or System Settings:</p>
+<pre tabindex="0"><code>% ifconfig en0 | grep -w &#34;inet&#34;
+inet 192.168.4.58 netmask 0xfffffc00 broadcast 192.168.7.255
+</code></pre><p><img src="images/system_settings_ip.png" alt=""></p>
+</li>
+<li>
+<p>From your virtual machine, you can now <code>curl</code> these files.</p>
+<pre tabindex="0"><code>% curl http://192.168.4.58:8000/
+</code></pre></li>
+</ol>
 
             </div>
         </article></main>
