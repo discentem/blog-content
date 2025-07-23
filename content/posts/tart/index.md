@@ -1,7 +1,7 @@
 ---
 title: "How to create a macOS virtual machine with Tart"
 date: 2025-07-19
-draft: true
+draft: false
 ---
 This post documents how to set up a macOS virtual machine with Tart. 
 # Installing Tart
@@ -226,7 +226,53 @@ If you named your VM `my-15_5-vm`, for example, you'd run it with `tart run my-1
   
     > Note: Some Tart images will already have the agent installed.
 
-##### Transferring files from your host
+##### Transferring files between host and VM
+
+There's multiple ways to share files between your host and guest.
+<h6><details><summary><span style="font-weight: bold;">Mount a file share</span></summary></h>
+When you launch your VM with `tart run` you can pass a flag to create a shared folder which is accessible under `/Volumes`.
+
+```
+tart run my-15_5-vm --dir=~
+```
+
+![](images/mounted_folder.png)
+
+```
+% tart exec blah ls /Volumes
+  Macintosh HD
+  My Shared Files
+```
+
+> **Remember**: `tart exec` requires `tart-guest-agent` to be installed and running inside your VM. 
+
+</details>
+
+<h6>
+<details>
+<summary><span style="font-weight: bold;">Run a local webserver on your host machine</span></summary>
+</h>
+
+1. For example, if you have python3 installed, this command will serve your home directory as a local webserver.
+
+    ```
+    python3 -m http.server -d ~ # defaults to port 8000
+    ```
+
+1. Next, find the IP address of your host machine via Terminal or System Settings:
+
+    ```
+    % ifconfig en0 | grep -w "inet"
+    inet 192.168.4.58 netmask 0xfffffc00 broadcast 192.168.7.255
+    ```
+
+    ![](images/system_settings_ip.png)
+
+1. From your virtual machine, you can now `curl` these files.
+
+    ```
+    % curl http://192.168.4.58:8000/
+    ```
 
 
 
