@@ -13,16 +13,10 @@ googleAnalytics = "UA-212195209-1"
     description = "I am a Client Platform Engineer. I like to use golang, config management, and open-source management tools. Views are my own."
     avatar = "static/avatar.jpg"
 [[menu.main]]
-    url = "/"
-    name = "Blog"
-    weight = 1
-
-[[params.social]]
-    icon = "github"
     url = "https://github.com/discentem/"
-[[params.social]]
-    url = "https://macadmins.slack.com/messages/D1PJBJWLT"
-    icon = "slack"
-[[params.social]]
-    icon = "linkedin"
+    name = "Github"
+    weight = 2
+[[menu.main]]
     url = "https://www.linkedin.com/in/brandon-kurtz/"
+    name = "Linkedin"
+    weight = 3
