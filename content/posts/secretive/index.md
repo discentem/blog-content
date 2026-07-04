@@ -1,7 +1,7 @@
 ---
 title: "Using Secretive and TouchID for sshing"
 date: 2026-07-04
-draft: true
+draft: false
 ---
 
 # What is Secretive?
@@ -48,6 +48,3 @@ draft: true
     ```
     Hi discentem! You've successfully authenticated, but GitHub does not provide shell access.
     ```
-
-
-
