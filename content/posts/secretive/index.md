@@ -1,5 +1,5 @@
 ---
-title: "Using Secretive and TouchID for sshing"
+title: "Use TouchID for ssh with Secretive"
 date: 2026-07-04
 draft: false
 ---
